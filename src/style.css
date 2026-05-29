@@ -395,15 +395,24 @@ footer {
   scroll-margin-top: 95px;
 }
 
+.section {
+  padding: 46px 6%;
+}
+
 .section h2 {
-  font-size: 42px;
+  font-size: 36px;
   line-height: 1.08;
-  margin-bottom: 22px;
+  margin-bottom: 18px;
 }
 
 .section-description {
-  font-size: 18px;
-  line-height: 1.5;
-  margin-bottom: 26px;
+  font-size: 17px;
+  line-height: 1.45;
+  margin-bottom: 22px;
+}
+
+.section-label {
+  font-size: 11px;
+  margin-bottom: 12px;
 }
 }
