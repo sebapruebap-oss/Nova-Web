@@ -21,7 +21,7 @@ const products = [
     name: 'Medias por mayor',
     category: 'Mayorista',
     price: 'Consultar precio',
-    image: 'https://images.unsplash.com/photo-1618354691249-18772bbac3e4?auto=format&fit=crop&w=900&q=80',
+    image: 'https://images.unsplash.com/photo-1603252109303-2751441dd157?auto=format&fit=crop&w=900&q=80',
     message: 'Hola, quiero consultar precios por mayor de medias. ¿Me pasás la lista disponible?'
   },
   {
