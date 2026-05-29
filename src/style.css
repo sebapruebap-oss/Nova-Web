@@ -394,4 +394,16 @@ section,
 footer {
   scroll-margin-top: 95px;
 }
+
+.section h2 {
+  font-size: 42px;
+  line-height: 1.08;
+  margin-bottom: 22px;
+}
+
+.section-description {
+  font-size: 18px;
+  line-height: 1.5;
+  margin-bottom: 26px;
+}
 }
