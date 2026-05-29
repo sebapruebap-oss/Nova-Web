@@ -52,16 +52,21 @@ const productCard = (product) => `
 `
 
 document.querySelector('#app').innerHTML = `
-  <header class="header">
-    <div class="logo">AleAle</div>
-    <nav>
-      <a href="#abrigos">Abrigos</a>
-      <a href="#mayorista">Mayorista</a>
-      <a href="#como-comprar">Cómo comprar</a>
-      <a href="#envios">Envíos</a>
-      <a href="#contacto">Contacto</a>
-    </nav>
-  </header>
+<header class="header">
+  <div class="logo">AleAle</div>
+
+  <button class="menu-toggle" aria-label="Abrir menú">
+    ☰
+  </button>
+
+  <nav class="nav-menu">
+    <a href="#abrigos">Abrigos</a>
+    <a href="#mayorista">Mayorista</a>
+    <a href="#como-comprar">Cómo comprar</a>
+    <a href="#envios">Envíos</a>
+    <a href="#contacto">Contacto</a>
+  </nav>
+</header>
 
   <main>
     <section class="hero">
@@ -149,7 +154,29 @@ document.querySelector('#app').innerHTML = `
     </div>
   </footer>
 
-  <a class="floating-whatsapp" target="_blank" href="${whatsappLink('Hola, estoy viendo la página de AleAle y quería hacer una consulta.')}">
-    WhatsApp
-  </a>
-`
+<a 
+  class="floating-whatsapp" 
+  target="_blank" 
+  aria-label="Consultar por WhatsApp"
+  href="${whatsappLink('Hola, estoy viendo la página de AleAle y quería hacer una consulta.')}"
+>
+  <svg viewBox="0 0 32 32" aria-hidden="true">
+    <path d="M16.04 3C8.86 3 3.02 8.82 3.02 15.98c0 2.28.6 4.5 1.73 6.46L3 29l6.73-1.76a13.02 13.02 0 0 0 6.31 1.61h.01c7.18 0 13.02-5.82 13.02-12.98C29.07 8.82 23.23 3 16.04 3Zm0 23.66h-.01c-1.93 0-3.82-.52-5.48-1.5l-.39-.23-3.99 1.04 1.07-3.88-.25-.4a10.75 10.75 0 0 1-1.66-5.72c0-5.95 4.86-10.8 10.83-10.8 2.9 0 5.62 1.13 7.66 3.17a10.72 10.72 0 0 1 3.17 7.64c0 5.95-4.86 10.68-10.95 10.68Zm5.94-8.08c-.33-.16-1.94-.95-2.24-1.06-.3-.11-.52-.16-.74.16-.22.33-.85 1.06-1.04 1.28-.19.22-.38.25-.71.08-.33-.16-1.38-.51-2.63-1.62-.97-.86-1.63-1.93-1.82-2.26-.19-.33-.02-.5.14-.66.14-.14.33-.38.49-.57.16-.19.22-.33.33-.55.11-.22.05-.41-.03-.57-.08-.16-.74-1.78-1.01-2.43-.27-.64-.54-.55-.74-.56h-.63c-.22 0-.57.08-.87.41-.3.33-1.14 1.11-1.14 2.7s1.17 3.14 1.33 3.36c.16.22 2.3 3.5 5.57 4.9.78.33 1.39.53 1.86.68.78.25 1.49.21 2.05.13.63-.09 1.94-.79 2.21-1.56.27-.77.27-1.43.19-1.56-.08-.14-.3-.22-.63-.38Z"/>
+  </svg>
+</a>
+  `
+const menuToggle = document.querySelector('.menu-toggle')
+const navMenu = document.querySelector('.nav-menu')
+const navLinks = document.querySelectorAll('.nav-menu a')
+
+menuToggle.addEventListener('click', () => {
+  navMenu.classList.toggle('active')
+  menuToggle.textContent = navMenu.classList.contains('active') ? '×' : '☰'
+})
+
+navLinks.forEach((link) => {
+  link.addEventListener('click', () => {
+    navMenu.classList.remove('active')
+    menuToggle.textContent = '☰'
+  })
+})
