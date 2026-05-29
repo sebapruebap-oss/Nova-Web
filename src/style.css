@@ -374,9 +374,9 @@ h1 {
     grid-template-columns: 1fr;
   }
 
-  .product-card img {
-    height: 320px;
-  }
+.product-card img {
+  height: 240px;
+}
 
 .floating-whatsapp {
   right: 16px;
