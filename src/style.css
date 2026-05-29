@@ -379,15 +379,15 @@ h1 {
 }
 
 .floating-whatsapp {
-  right: 16px;
-  bottom: 16px;
-  width: 54px;
-  height: 54px;
+  right: 14px;
+  bottom: 14px;
+  width: 46px;
+  height: 46px;
 }
 
 .floating-whatsapp svg {
-  width: 30px;
-  height: 30px;
+  width: 25px;
+  height: 25px;
 }
 
 section,
