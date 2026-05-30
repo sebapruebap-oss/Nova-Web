@@ -103,7 +103,7 @@ document.querySelector('#app').innerHTML = `
     <section id="mayorista" class="section mayorista">
       <span class="section-label">MAYORISTA</span>
       <h2>Básicos por cantidad</h2>
-      <p class="section-description">Medias, boxers y básicos pensados para revendedores, familias o compras grandes.</p>
+      
       <div class="grid">
         ${products.filter(product => product.category === 'Mayorista').map(productCard).join('')}
       </div>
