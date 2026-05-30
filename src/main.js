@@ -4,33 +4,53 @@ const WHATSAPP_NUMBER = '5493416279719'
 
 const products = [
   {
-    name: 'Campera puffer',
-    category: 'Abrigos',
-    price: 'Consultar precio',
-    image: 'https://images.unsplash.com/photo-1548883354-94bcfe321cbb?auto=format&fit=crop&w=900&q=80',
-    message: 'Hola, quiero consultar por Campera puffer. ¿Me pasás disponibilidad, talles y precio?'
-  },
+  id: 'campera-puffer',
+  name: 'Campera puffer',
+  category: 'Abrigos',
+  type: 'retail',
+  price: 'Consultar precio',
+  priceValue: null,
+  image: 'https://images.unsplash.com/photo-1548883354-94bcfe321cbb?auto=format&fit=crop&w=900&q=80',
+  description: 'Abrigo de invierno. Consultar talles, colores y disponibilidad.',
+  available: true,
+  message: 'Hola, quiero consultar por la Campera puffer. ¿Qué talles y colores tenés disponibles?'
+},
   {
-    name: 'Buzo polar',
-    category: 'Abrigos',
-    price: 'Consultar precio',
-    image: 'https://images.unsplash.com/photo-1618354691373-d851c5c3a990?auto=format&fit=crop&w=900&q=80',
-    message: 'Hola, quiero consultar por Buzo polar. ¿Me pasás disponibilidad, talles y precio?'
-  },
+  id: 'buzo-polar',
+  name: 'Buzo polar',
+  category: 'Abrigos',
+  type: 'retail',
+  price: 'Consultar precio',
+  priceValue: null,
+  image: 'https://images.unsplash.com/photo-1618354691373-d851c5c3a990?auto=format&fit=crop&w=900&q=80',
+  description: 'Buzo de abrigo para temporada de invierno. Consultar colores y talles.',
+  available: true,
+  message: 'Hola, quiero consultar por el Buzo polar. ¿Qué talles y colores tenés disponibles?'
+},
   {
-    name: 'Medias por mayor',
-    category: 'Mayorista',
-    price: 'Consultar precio',
-    image: 'https://images.unsplash.com/photo-1603252109303-2751441dd157?auto=format&fit=crop&w=900&q=80',
-    message: 'Hola, quiero consultar precios por mayor de medias. ¿Me pasás la lista disponible?'
-  },
-  {
-    name: 'Boxers por mayor',
-    category: 'Mayorista',
-    price: 'Consultar precio',
-    image: 'https://images.unsplash.com/photo-1603252109303-2751441dd157?auto=format&fit=crop&w=900&q=80',
-    message: 'Hola, quiero consultar precios por mayor de boxers. ¿Me pasás la lista disponible?'
-  }
+  id: 'medias-mayor',
+  name: 'Medias por mayor',
+  category: 'Mayorista',
+  type: 'wholesale',
+  price: 'Consultar precio',
+  priceValue: null,
+  image: 'https://images.unsplash.com/photo-1603252109303-2751441dd157?auto=format&fit=crop&w=900&q=80',
+  description: 'Venta por cantidad. Consultar packs, colores y disponibilidad.',
+  available: true,
+  message: 'Hola, quiero consultar precios por mayor de medias. ¿Me pasás la lista disponible?'
+},
+{
+  id: 'boxers-mayor',
+  name: 'Boxers por mayor',
+  category: 'Mayorista',
+  type: 'wholesale',
+  price: 'Consultar precio',
+  priceValue: null,
+  image: 'https://images.unsplash.com/photo-1603252109303-2751441dd157?auto=format&fit=crop&w=900&q=80',
+  description: 'Venta por cantidad. Consultar packs, talles y disponibilidad.',
+  available: true,
+  message: 'Hola, quiero consultar precios por mayor de boxers. ¿Me pasás la lista disponible?'
+}
 ]
 
 const whatsappLink = (message) => {
