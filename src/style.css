@@ -146,6 +146,43 @@ nav {
   white-space: nowrap;
 }
 
+.cart-item small {
+  display: block;
+  margin-top: 4px;
+  color: #7b604b;
+  font-size: 12px;
+}
+
+.cart-item-actions {
+  display: grid;
+  justify-items: end;
+  gap: 10px;
+}
+
+.quantity-controls {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border: 1px solid #eadfd2;
+  border-radius: 999px;
+  padding: 6px 10px;
+}
+
+.quantity-controls button {
+  border: none;
+  background: transparent;
+  color: #2f241d;
+  font-size: 18px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.quantity-controls span {
+  min-width: 18px;
+  text-align: center;
+  font-weight: 700;
+}
+
 .cart-total {
   border-top: 1px solid #eadfd2;
   padding-top: 18px;

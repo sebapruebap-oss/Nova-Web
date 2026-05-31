@@ -106,6 +106,34 @@ const addToCart = (productId) => {
   renderCartPanel()
 }
 
+const increaseCartItem = (productId) => {
+  const item = cart.find((product) => product.id === productId)
+
+  if (!item) return
+
+  item.quantity += 1
+
+  updateCartButton()
+  renderCartPanel()
+}
+
+const decreaseCartItem = (productId) => {
+  const item = cart.find((product) => product.id === productId)
+
+  if (!item) return
+
+  const minimumQuantity = item.minQuantity || 1
+
+  if (item.quantity > minimumQuantity) {
+    item.quantity -= 1
+  } else {
+    cart = cart.filter((product) => product.id !== productId)
+  }
+
+  updateCartButton()
+  renderCartPanel()
+}
+
 const getCartTotalItems = () => {
   return cart.reduce((total, item) => total + item.quantity, 0)
 }
@@ -149,17 +177,27 @@ const renderCartPanel = () => {
         <button class="cart-close" type="button">×</button>
       </div>
 
-      <div class="cart-items">
-        ${cart.map((item) => `
-          <div class="cart-item">
-            <div>
-              <strong>${item.name}</strong>
-              <span>${item.quantity} unidad${item.quantity > 1 ? 'es' : ''}</span>
-            </div>
-            <p>${formatPrice((item.priceValue || 0) * item.quantity)}</p>
-          </div>
-        `).join('')}
+<div class="cart-items">
+  ${cart.map((item) => `
+    <div class="cart-item">
+      <div>
+        <strong>${item.name}</strong>
+        <span>${item.quantity} unidad${item.quantity > 1 ? 'es' : ''}</span>
+        ${item.minQuantity > 1 ? `<small>Mínimo x${item.minQuantity}</small>` : ''}
       </div>
+
+      <div class="cart-item-actions">
+        <p>${formatPrice((item.priceValue || 0) * item.quantity)}</p>
+
+        <div class="quantity-controls">
+          <button type="button" class="quantity-decrease" data-product-id="${item.id}">−</button>
+          <span>${item.quantity}</span>
+          <button type="button" class="quantity-increase" data-product-id="${item.id}">+</button>
+        </div>
+      </div>
+    </div>
+  `).join('')}
+</div>
 
       <div class="cart-total">
         <span>Total</span>
@@ -185,6 +223,21 @@ const renderCartPanel = () => {
     renderCheckoutForm()
   })
 }
+
+const increaseButtons = document.querySelectorAll('.quantity-increase')
+const decreaseButtons = document.querySelectorAll('.quantity-decrease')
+
+increaseButtons.forEach((button) => {
+  button.addEventListener('click', () => {
+    increaseCartItem(button.dataset.productId)
+  })
+})
+
+decreaseButtons.forEach((button) => {
+  button.addEventListener('click', () => {
+    decreaseCartItem(button.dataset.productId)
+  })
+})
 
 }
   function renderCheckoutForm() {
