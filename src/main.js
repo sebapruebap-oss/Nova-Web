@@ -11,7 +11,7 @@ const products = [
     price: '$10.000',
     priceValue: 10000,
     minQuantity: 1,
-    image: '/productos/campera-corta.jpg',
+    image: '/productos/campera-corta-roja.png',
     description: 'Campera corta de invierno. Consultar talles, colores y disponibilidad.',
     available: true,
     message: 'Hola, quiero consultar por la Campera corta. ¿Qué talles y colores tenés disponibles?'
@@ -24,7 +24,7 @@ const products = [
     price: '$14.000',
     priceValue: 14000,
     minQuantity: 1,
-    image: '/productos/campera-larga.jpg',
+    image: '/productos/campera-larga-azul.png',
     description: 'Campera larga de invierno. Consultar talles, colores y disponibilidad.',
     available: true,
     message: 'Hola, quiero consultar por la Campera larga. ¿Qué talles y colores tenés disponibles?'
@@ -37,7 +37,7 @@ const products = [
     price: '$5.800 c/u · mínimo x3',
     priceValue: 5800,
     minQuantity: 3,
-    image: '/productos/boxer-vuk.jpg',
+    image: '/productos/boxer-vuk-azul.png',
     description: 'Boxers Vuk por mayor. Precio unitario con compra mínima de 3 unidades.',
     available: true,
     message: 'Hola, quiero consultar por Boxer Vuk por mayor. ¿Qué colores y talles tenés disponibles?'
@@ -50,7 +50,7 @@ const products = [
     price: '$6.200 c/u · mínimo x3',
     priceValue: 6200,
     minQuantity: 3,
-    image: '/productos/boxer-intermezzo.jpg',
+    image: '/productos/boxer-intermezzo-estampado.png',
     description: 'Boxers Intermezzo por mayor. Precio unitario con compra mínima de 3 unidades.',
     available: true,
     message: 'Hola, quiero consultar por Boxer Intermezzo por mayor. ¿Qué colores y talles tenés disponibles?'
@@ -63,20 +63,20 @@ const products = [
     price: '$1.300 c/u · mínimo x6',
     priceValue: 1300,
     minQuantity: 6,
-    image: '/productos/medias-largas.jpg',
+    image: '/productos/medias-largas-rayadas.png',
     description: 'Medias largas por mayor. Precio unitario con compra mínima de 6 unidades.',
     available: true,
     message: 'Hola, quiero consultar por Medias largas por mayor. ¿Qué modelos tenés disponibles?'
   },
   {
-    id: 'medias-cortas',
-    name: 'Medias cortas',
-    category: 'Mayorista',
+    id: 'medias-caña',
+    name: 'Medias caña',
+    category: 'Mayaorista',
     type: 'wholesale',
     price: '$1.300 c/u · mínimo x6',
     priceValue: 1300,
     minQuantity: 6,
-    image: '/productos/medias-cortas.jpg',
+    image: '/productos/medias-cortas-beige.png',
     description: 'Medias cortas por mayor. Precio unitario con compra mínima de 6 unidades.',
     available: true,
     message: 'Hola, quiero consultar por Medias cortas por mayor. ¿Qué modelos tenés disponibles?'
