@@ -69,17 +69,17 @@ const products = [
     message: 'Hola, quiero consultar por Medias largas por mayor. ¿Qué modelos tenés disponibles?'
   },
   {
-    id: 'medias-caña',
+    id: 'medias-cana',
     name: 'Medias caña',
-    category: 'Mayaorista',
+    category: 'Mayorista',
     type: 'wholesale',
     price: '$1.300 c/u · mínimo x6',
     priceValue: 1300,
     minQuantity: 6,
     image: '/productos/medias-cortas-beige.png',
-    description: 'Medias cortas por mayor. Precio unitario con compra mínima de 6 unidades.',
+    description: 'Medias caña por mayor. Precio unitario con compra mínima.',
     available: true,
-    message: 'Hola, quiero consultar por Medias cortas por mayor. ¿Qué modelos tenés disponibles?'
+    message: 'Hola, quiero consultar por Medias caña por mayor.'
   }
 ]
 
