@@ -368,11 +368,33 @@ h1 {
     font-size: 17px;
   }
 
-  .categories,
-  .grid,
-  .steps-grid {
-    grid-template-columns: 1fr;
-  }
+.categories,
+.steps-grid {
+  grid-template-columns: 1fr;
+}
+
+.grid {
+  display: flex;
+  overflow-x: auto;
+  gap: 18px;
+  padding-bottom: 8px;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+
+  /* ocultar barra */
+  scrollbar-width: none;       /* Firefox */
+  -ms-overflow-style: none;    /* IE/Edge viejo */
+}
+
+.grid::-webkit-scrollbar {
+  display: none;               /* Chrome, Edge, Safari */
+}
+
+.product-card {
+  min-width: 75%;
+  flex: 0 0 auto;
+  scroll-snap-align: start;
+}
 
 .product-card img {
   height: 240px;
