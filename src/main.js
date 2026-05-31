@@ -83,6 +83,40 @@ const products = [
   }
 ]
 
+let cart = []
+
+const addToCart = (productId) => {
+  const product = products.find((item) => item.id === productId)
+
+  if (!product) return
+
+  const existingItem = cart.find((item) => item.id === productId)
+  const minimumQuantity = product.minQuantity || 1
+
+  if (existingItem) {
+    existingItem.quantity += 1
+  } else {
+    cart.push({
+      ...product,
+      quantity: minimumQuantity,
+    })
+  }
+
+  updateCartButton()
+}
+
+const getCartTotalItems = () => {
+  return cart.reduce((total, item) => total + item.quantity, 0)
+}
+
+const updateCartButton = () => {
+  const cartButton = document.querySelector('.cart-button')
+
+  if (!cartButton) return
+
+  cartButton.textContent = `Carrito (${getCartTotalItems()})`
+}
+
 const whatsappLink = (message) => {
   return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`
 }
@@ -94,9 +128,9 @@ const productCard = (product) => `
       <span>${product.category}</span>
       <h3>${product.name}</h3>
       <p>${product.price}</p>
-      <a href="${whatsappLink(product.message)}" target="_blank">
-        Consultar por WhatsApp
-      </a>
+     <button class="btn primary add-to-cart" data-product-id="${product.id}">
+        Agregar al carrito
+     </button>
     </div>
   </article>
 `
@@ -104,6 +138,10 @@ const productCard = (product) => `
 document.querySelector('#app').innerHTML = `
 <header class="header">
   <div class="logo">AleAle</div>
+
+  <button class="cart-button" type="button">
+    Carrito (0)
+  </button>
 
   <button class="menu-toggle" aria-label="Abrir menú">
     ☰
@@ -228,5 +266,14 @@ navLinks.forEach((link) => {
   link.addEventListener('click', () => {
     navMenu.classList.remove('active')
     menuToggle.textContent = '☰'
+  })
+})
+
+const addToCartButtons = document.querySelectorAll('.add-to-cart')
+
+addToCartButtons.forEach((button) => {
+  button.addEventListener('click', () => {
+    const productId = button.dataset.productId
+    addToCart(productId)
   })
 })
