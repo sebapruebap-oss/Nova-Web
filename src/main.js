@@ -177,7 +177,105 @@ const renderCartPanel = () => {
   closeButton.addEventListener('click', () => {
     cartPanel.classList.remove('active')
   })
+  
+  const checkoutButton = document.querySelector('.cart-checkout')
+
+  if (checkoutButton) {
+  checkoutButton.addEventListener('click', () => {
+    renderCheckoutForm()
+  })
 }
+
+}
+  function renderCheckoutForm() {
+    const cartPanel = document.querySelector('.cart-panel')
+
+    if (!cartPanel) return
+
+    cartPanel.innerHTML = `
+    <div class="cart-panel-header">
+      <h3>Finalizar pedido</h3>
+      <button class="cart-close" type="button">×</button>
+    </div>
+
+    <form class="checkout-form">
+      <label>
+        Nombre
+        <input type="text" name="customerName" placeholder="Tu nombre" required>
+      </label>
+
+      <label>
+        Teléfono
+        <input type="tel" name="customerPhone" placeholder="Tu WhatsApp" required>
+      </label>
+
+      <label>
+        Zona o dirección
+        <input type="text" name="customerAddress" placeholder="Barrio, zona o dirección" required>
+      </label>
+
+      <label>
+        Entrega
+        <select name="deliveryType" required>
+          <option value="">Elegí una opción</option>
+          <option value="Retiro">Retiro</option>
+          <option value="Envío en Rosario">Envío en Rosario</option>
+          <option value="Consultar otra zona">Consultar otra zona</option>
+        </select>
+      </label>
+
+      <label>
+        Nota opcional
+        <textarea name="customerNote" placeholder="Talle, color, horario o aclaración"></textarea>
+      </label>
+
+      <div class="cart-total">
+        <span>Total</span>
+        <strong>${formatPrice(getCartTotalPrice())}</strong>
+      </div>
+
+      <button class="btn primary" type="submit">
+        Enviar pedido
+      </button>
+
+      <button class="checkout-back" type="button">
+        Volver a la bolsa
+      </button>
+    </form>
+  `
+
+    const closeButton = document.querySelector('.cart-close')
+    const backButton = document.querySelector('.checkout-back')
+    const checkoutForm = document.querySelector('.checkout-form')
+
+    closeButton.addEventListener('click', () => {
+      cartPanel.classList.remove('active')
+    })
+
+    backButton.addEventListener('click', () => {
+      renderCartPanel()
+    })
+
+    checkoutForm.addEventListener('submit', (event) => {
+      event.preventDefault()
+
+      const formData = new FormData(checkoutForm)
+
+      const customerName = formData.get('customerName')
+      const customerPhone = formData.get('customerPhone')
+      const customerAddress = formData.get('customerAddress')
+      const deliveryType = formData.get('deliveryType')
+      const customerNote = formData.get('customerNote')
+
+      const orderItems = cart.map((item) => {
+        return `- ${item.name} x${item.quantity} — ${formatPrice((item.priceValue || 0) * item.quantity)}`
+      }).join('%0A')
+
+      const message = `Hola, quiero hacer este pedido:%0A%0A${orderItems}%0A%0ATotal: ${formatPrice(getCartTotalPrice())}%0A%0ADatos:%0ANombre: ${customerName}%0ATeléfono: ${customerPhone}%0AZona/dirección: ${customerAddress}%0AEntrega: ${deliveryType}%0ANota: ${customerNote || 'Sin nota'}`
+
+      window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${message}`, '_blank')
+    })
+  }
 
 const whatsappLink = (message) => {
   return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`
