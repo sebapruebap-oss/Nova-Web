@@ -4,53 +4,83 @@ const WHATSAPP_NUMBER = '5493416279719'
 
 const products = [
   {
-  id: 'campera-puffer',
-  name: 'Campera puffer',
-  category: 'Abrigos',
-  type: 'retail',
-  price: 'Consultar precio',
-  priceValue: null,
-  image: 'https://images.unsplash.com/photo-1548883354-94bcfe321cbb?auto=format&fit=crop&w=900&q=80',
-  description: 'Abrigo de invierno. Consultar talles, colores y disponibilidad.',
-  available: true,
-  message: 'Hola, quiero consultar por la Campera puffer. ¿Qué talles y colores tenés disponibles?'
-},
+    id: 'campera-corta',
+    name: 'Campera corta',
+    category: 'Abrigos',
+    type: 'retail',
+    price: '$10.000',
+    priceValue: 10000,
+    minQuantity: 1,
+    image: '/productos/campera-corta.jpg',
+    description: 'Campera corta de invierno. Consultar talles, colores y disponibilidad.',
+    available: true,
+    message: 'Hola, quiero consultar por la Campera corta. ¿Qué talles y colores tenés disponibles?'
+  },
   {
-  id: 'buzo-polar',
-  name: 'Buzo polar',
-  category: 'Abrigos',
-  type: 'retail',
-  price: 'Consultar precio',
-  priceValue: null,
-  image: 'https://images.unsplash.com/photo-1618354691373-d851c5c3a990?auto=format&fit=crop&w=900&q=80',
-  description: 'Buzo de abrigo para temporada de invierno. Consultar colores y talles.',
-  available: true,
-  message: 'Hola, quiero consultar por el Buzo polar. ¿Qué talles y colores tenés disponibles?'
-},
+    id: 'campera-larga',
+    name: 'Campera larga',
+    category: 'Abrigos',
+    type: 'retail',
+    price: '$14.000',
+    priceValue: 14000,
+    minQuantity: 1,
+    image: '/productos/campera-larga.jpg',
+    description: 'Campera larga de invierno. Consultar talles, colores y disponibilidad.',
+    available: true,
+    message: 'Hola, quiero consultar por la Campera larga. ¿Qué talles y colores tenés disponibles?'
+  },
   {
-  id: 'medias-mayor',
-  name: 'Medias por mayor',
-  category: 'Mayorista',
-  type: 'wholesale',
-  price: 'Consultar precio',
-  priceValue: null,
-  image: 'https://images.unsplash.com/photo-1603252109303-2751441dd157?auto=format&fit=crop&w=900&q=80',
-  description: 'Venta por cantidad. Consultar packs, colores y disponibilidad.',
-  available: true,
-  message: 'Hola, quiero consultar precios por mayor de medias. ¿Me pasás la lista disponible?'
-},
-{
-  id: 'boxers-mayor',
-  name: 'Boxers por mayor',
-  category: 'Mayorista',
-  type: 'wholesale',
-  price: 'Consultar precio',
-  priceValue: null,
-  image: 'https://images.unsplash.com/photo-1603252109303-2751441dd157?auto=format&fit=crop&w=900&q=80',
-  description: 'Venta por cantidad. Consultar packs, talles y disponibilidad.',
-  available: true,
-  message: 'Hola, quiero consultar precios por mayor de boxers. ¿Me pasás la lista disponible?'
-}
+    id: 'boxer-vuk',
+    name: 'Boxer Vuk',
+    category: 'Mayorista',
+    type: 'wholesale',
+    price: '$5.800 c/u · mínimo x3',
+    priceValue: 5800,
+    minQuantity: 3,
+    image: '/productos/boxer-vuk.jpg',
+    description: 'Boxers Vuk por mayor. Precio unitario con compra mínima de 3 unidades.',
+    available: true,
+    message: 'Hola, quiero consultar por Boxer Vuk por mayor. ¿Qué colores y talles tenés disponibles?'
+  },
+  {
+    id: 'boxer-intermezzo',
+    name: 'Boxer Intermezzo',
+    category: 'Mayorista',
+    type: 'wholesale',
+    price: '$6.200 c/u · mínimo x3',
+    priceValue: 6200,
+    minQuantity: 3,
+    image: '/productos/boxer-intermezzo.jpg',
+    description: 'Boxers Intermezzo por mayor. Precio unitario con compra mínima de 3 unidades.',
+    available: true,
+    message: 'Hola, quiero consultar por Boxer Intermezzo por mayor. ¿Qué colores y talles tenés disponibles?'
+  },
+  {
+    id: 'medias-largas',
+    name: 'Medias largas',
+    category: 'Mayorista',
+    type: 'wholesale',
+    price: '$1.300 c/u · mínimo x6',
+    priceValue: 1300,
+    minQuantity: 6,
+    image: '/productos/medias-largas.jpg',
+    description: 'Medias largas por mayor. Precio unitario con compra mínima de 6 unidades.',
+    available: true,
+    message: 'Hola, quiero consultar por Medias largas por mayor. ¿Qué modelos tenés disponibles?'
+  },
+  {
+    id: 'medias-cortas',
+    name: 'Medias cortas',
+    category: 'Mayorista',
+    type: 'wholesale',
+    price: '$1.300 c/u · mínimo x6',
+    priceValue: 1300,
+    minQuantity: 6,
+    image: '/productos/medias-cortas.jpg',
+    description: 'Medias cortas por mayor. Precio unitario con compra mínima de 6 unidades.',
+    available: true,
+    message: 'Hola, quiero consultar por Medias cortas por mayor. ¿Qué modelos tenés disponibles?'
+  }
 ]
 
 const whatsappLink = (message) => {
