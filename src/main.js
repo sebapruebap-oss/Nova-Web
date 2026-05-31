@@ -178,16 +178,21 @@ const renderCartPanel = () => {
       </div>
 
 <div class="cart-items">
+<div class="cart-items">
   ${cart.map((item) => `
     <div class="cart-item">
-      <div>
-        <strong>${item.name}</strong>
-        <span>${item.quantity} unidad${item.quantity > 1 ? 'es' : ''}</span>
-        ${item.minQuantity > 1 ? `<small>Mínimo x${item.minQuantity}</small>` : ''}
-      </div>
+      <img src="${item.image}" alt="${item.name}" class="cart-item-image">
 
-      <div class="cart-item-actions">
-        <p>${formatPrice((item.priceValue || 0) * item.quantity)}</p>
+      <div class="cart-item-content">
+        <div class="cart-item-top">
+          <div>
+            <strong>${item.name}</strong>
+            <span>${item.quantity} unidad${item.quantity > 1 ? 'es' : ''}</span>
+            ${item.minQuantity > 1 ? `<small>Mínimo x${item.minQuantity}</small>` : ''}
+          </div>
+
+          <p>${formatPrice((item.priceValue || 0) * item.quantity)}</p>
+        </div>
 
         <div class="quantity-controls">
           <button type="button" class="quantity-decrease" data-product-id="${item.id}">−</button>
