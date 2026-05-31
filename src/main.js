@@ -103,6 +103,7 @@ const addToCart = (productId) => {
   }
 
   updateCartButton()
+  renderCartPanel()
 }
 
 const getCartTotalItems = () => {
@@ -114,7 +115,68 @@ const updateCartButton = () => {
 
   if (!cartButton) return
 
-  cartButton.textContent = `Carrito (${getCartTotalItems()})`
+  cartButton.textContent = `Carrito 🛒 (${getCartTotalItems()})`
+}
+
+const getCartTotalPrice = () => {
+  return cart.reduce((total, item) => {
+    return total + (item.priceValue || 0) * item.quantity
+  }, 0)
+}
+
+const formatPrice = (value) => {
+  return `$${value.toLocaleString('es-AR')}`
+}
+
+const renderCartPanel = () => {
+  const cartPanel = document.querySelector('.cart-panel')
+
+  if (!cartPanel) return
+
+  if (cart.length === 0) {
+    cartPanel.innerHTML = `
+      <div class="cart-panel-header">
+        <h3>Tu bolsa</h3>
+        <button class="cart-close" type="button">×</button>
+      </div>
+
+      <p class="cart-empty">Todavía no agregaste productos.</p>
+    `
+  } else {
+    cartPanel.innerHTML = `
+      <div class="cart-panel-header">
+        <h3>Tu bolsa</h3>
+        <button class="cart-close" type="button">×</button>
+      </div>
+
+      <div class="cart-items">
+        ${cart.map((item) => `
+          <div class="cart-item">
+            <div>
+              <strong>${item.name}</strong>
+              <span>${item.quantity} unidad${item.quantity > 1 ? 'es' : ''}</span>
+            </div>
+            <p>${formatPrice((item.priceValue || 0) * item.quantity)}</p>
+          </div>
+        `).join('')}
+      </div>
+
+      <div class="cart-total">
+        <span>Total</span>
+        <strong>${formatPrice(getCartTotalPrice())}</strong>
+      </div>
+
+      <button class="btn primary cart-checkout" type="button">
+        Finalizar pedido
+      </button>
+    `
+  }
+
+  const closeButton = document.querySelector('.cart-close')
+
+  closeButton.addEventListener('click', () => {
+    cartPanel.classList.remove('active')
+  })
 }
 
 const whatsappLink = (message) => {
@@ -140,7 +202,7 @@ document.querySelector('#app').innerHTML = `
   <div class="logo">AleAle</div>
 
   <button class="cart-button" type="button">
-    Carrito (0)
+    Carrito 🛒 (0)
   </button>
 
   <button class="menu-toggle" aria-label="Abrir menú">
@@ -242,6 +304,8 @@ document.querySelector('#app').innerHTML = `
     </div>
   </footer>
 
+<div class="cart-panel"></div>
+
 <a 
   class="floating-whatsapp" 
   target="_blank" 
@@ -276,4 +340,12 @@ addToCartButtons.forEach((button) => {
     const productId = button.dataset.productId
     addToCart(productId)
   })
+})
+
+const cartButton = document.querySelector('.cart-button')
+const cartPanel = document.querySelector('.cart-panel')
+
+cartButton.addEventListener('click', () => {
+  renderCartPanel()
+  cartPanel.classList.add('active')
 })
