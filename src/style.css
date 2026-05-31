@@ -183,6 +183,13 @@ nav {
   font-weight: 700;
 }
 
+.cart-note {
+  margin: -6px 0 18px;
+  color: #7b604b;
+  font-size: 13px;
+  line-height: 1.4;
+}
+
 .cart-item {
   display: flex;
   gap: 14px;

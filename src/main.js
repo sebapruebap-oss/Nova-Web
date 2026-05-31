@@ -209,8 +209,10 @@ const renderCartPanel = () => {
         <strong>${formatPrice(getCartTotalPrice())}</strong>
       </div>
 
+      <p class="cart-note">El pedido se confirma según disponibilidad.</p>
+
       <button class="btn primary cart-checkout" type="button">
-        Finalizar pedido
+        Completar datos
       </button>
     `
   }
