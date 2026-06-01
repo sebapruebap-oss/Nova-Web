@@ -361,19 +361,33 @@ decreaseButtons.forEach((button) => {
 
       const formData = new FormData(checkoutForm)
 
-      const customerName = formData.get('customerName')
-      const customerPhone = formData.get('customerPhone')
-      const customerAddress = formData.get('customerAddress')
-      const deliveryType = formData.get('deliveryType')
-      const customerNote = formData.get('customerNote')
+      const customerName = formData.get('name')
+      const customerPhone = formData.get('phone')
+      const customerAddress = formData.get('address')
+      const customerDelivery = formData.get('delivery')
+      const customerNote = formData.get('note') || 'Sin nota'
 
       const orderItems = cart.map((item) => {
         return `- ${item.name} x${item.quantity} — ${formatPrice((item.priceValue || 0) * item.quantity)}`
-      }).join('%0A')
+      }).join('\n')
 
-      const message = `Hola, quiero hacer este pedido:%0A%0A${orderItems}%0A%0ATotal: ${formatPrice(getCartTotalPrice())}%0A%0ADatos:%0ANombre: ${customerName}%0ATeléfono: ${customerPhone}%0AZona/dirección: ${customerAddress}%0AEntrega: ${deliveryType}%0ANota: ${customerNote || 'Sin nota'}`
+      const message = `
+      Hola, quiero hacer este pedido:
 
-      window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${message}`, '_blank')
+      PRODUCTOS:
+      ${orderItems}
+
+      TOTAL: ${formatPrice(getCartTotalPrice())}
+
+      DATOS:
+      Nombre: ${customerName}
+      Teléfono: ${customerPhone}
+      Zona/dirección: ${customerAddress}
+      Entrega: ${customerDelivery}
+      Nota: ${customerNote}
+      `
+
+      window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`, '_blank')
 
       clearCart()
       renderCartPanel()
