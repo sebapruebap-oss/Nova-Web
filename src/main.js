@@ -323,6 +323,16 @@ decreaseButtons.forEach((button) => {
           <option value="Consultar otra zona">Consultar otra zona</option>
         </select>
       </label>
+      
+      <label>
+        Método de pago
+        <select name="payment" required>
+          <option value="">Elegí una opción</option>
+          <option value="Transferencia">Transferencia</option>
+          <option value="Efectivo">Efectivo</option>
+          <option value="A coordinar">A coordinar</option>
+        </select>
+      </label>
 
       <label>
         Nota opcional
@@ -365,6 +375,7 @@ decreaseButtons.forEach((button) => {
       const customerPhone = formData.get('phone')
       const customerAddress = formData.get('address')
       const customerDelivery = formData.get('delivery')
+      const customerPayment = formData.get('payment')
       const customerNote = formData.get('note') || 'Sin nota'
 
       const orderItems = cart.map((item) => {
@@ -384,6 +395,7 @@ decreaseButtons.forEach((button) => {
       Teléfono: ${customerPhone}
       Zona/dirección: ${customerAddress}
       Entrega: ${customerDelivery}
+      Método de pago: ${customerPayment}
       Nota: ${customerNote}
       `
 
