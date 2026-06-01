@@ -83,7 +83,13 @@ const products = [
   }
 ]
 
-let cart = []
+const savedCart = localStorage.getItem('aleale-cart')
+
+let cart = savedCart ? JSON.parse(savedCart) : []
+
+const saveCart = () => {
+  localStorage.setItem('aleale-cart', JSON.stringify(cart))
+}
 
 const addToCart = (productId) => {
   const product = products.find((item) => item.id === productId)
@@ -102,6 +108,7 @@ const addToCart = (productId) => {
     })
   }
 
+  saveCart()
   updateCartButton()
   renderCartPanel()
 }
@@ -113,6 +120,7 @@ const increaseCartItem = (productId) => {
 
   item.quantity += 1
 
+  saveCart()
   updateCartButton()
   renderCartPanel()
 }
@@ -130,6 +138,7 @@ const decreaseCartItem = (productId) => {
     cart = cart.filter((product) => product.id !== productId)
   }
 
+  saveCart()
   updateCartButton()
   renderCartPanel()
 }
@@ -507,3 +516,5 @@ cartButton.addEventListener('click', () => {
   renderCartPanel()
   cartPanel.classList.add('active')
 })
+
+updateCartButton()
