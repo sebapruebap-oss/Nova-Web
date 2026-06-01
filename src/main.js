@@ -316,7 +316,7 @@ decreaseButtons.forEach((button) => {
 
       <label>
         Entrega
-        <select name="deliveryType" required>
+        <select name="delivery" required>
           <option value="">Elegí una opción</option>
           <option value="Retiro">Retiro</option>
           <option value="Envío en Rosario">Envío en Rosario</option>
