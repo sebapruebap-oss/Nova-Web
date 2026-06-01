@@ -276,17 +276,42 @@ decreaseButtons.forEach((button) => {
     <form class="checkout-form">
       <label>
         Nombre
-        <input type="text" name="customerName" placeholder="Tu nombre" required>
+        <input
+          type="text"
+          name="name"
+          placeholder="Tu nombre"
+          minlength="2"
+          pattern=".*[A-Za-zÁÉÍÓÚáéíóúÑñ].*"
+          title="Ingresá tu nombre"
+          required
+        >
       </label>
 
       <label>
         Teléfono
-        <input type="tel" name="customerPhone" placeholder="Tu WhatsApp" required>
+        <input
+          type="tel"
+          name="phone"
+          placeholder="Ej: 3412422699"
+          minlength="8"
+          maxlength="15"
+          pattern="[0-9 ]{8,15}"
+          title="Ingresá un número válido, solo números, mínimo 8 dígitos"
+          required
+        >
       </label>
 
       <label>
         Zona o dirección
-        <input type="text" name="customerAddress" placeholder="Barrio, zona o dirección" required>
+        <input
+          type="text"
+          name="address"
+          placeholder="Ej: Rosario, zona centro"
+          minlength="4"
+          pattern=".*[A-Za-zÁÉÍÓÚáéíóúÑñ].*"
+          title="Ingresá una zona o dirección válida, no solo números"
+          required
+        >
       </label>
 
       <label>
