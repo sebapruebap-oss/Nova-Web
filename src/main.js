@@ -91,6 +91,12 @@ const saveCart = () => {
   localStorage.setItem('aleale-cart', JSON.stringify(cart))
 }
 
+const clearCart = () => {
+  cart = []
+  saveCart()
+  updateCartButton()
+}
+
 const addToCart = (productId) => {
   const product = products.find((item) => item.id === productId)
 
@@ -343,7 +349,13 @@ decreaseButtons.forEach((button) => {
       const message = `Hola, quiero hacer este pedido:%0A%0A${orderItems}%0A%0ATotal: ${formatPrice(getCartTotalPrice())}%0A%0ADatos:%0ANombre: ${customerName}%0ATeléfono: ${customerPhone}%0AZona/dirección: ${customerAddress}%0AEntrega: ${deliveryType}%0ANota: ${customerNote || 'Sin nota'}`
 
       window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${message}`, '_blank')
+
+      clearCart()
+      renderCartPanel()
+      cartPanel.classList.remove('active')
     })
+    
+
   }
 
 const whatsappLink = (message) => {
