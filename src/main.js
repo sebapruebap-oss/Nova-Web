@@ -462,7 +462,6 @@ document.querySelector('#app').innerHTML = `
     </section>
 
     <section id="abrigos" class="section">
-      <span class="section-label">POR MENOR</span>
       <h2>Abrigos de temporada</h2>
       <div class="grid">
         ${products.filter(product => product.category === 'Abrigos').map(productCard).join('')}
@@ -470,7 +469,6 @@ document.querySelector('#app').innerHTML = `
     </section>
 
     <section id="mayorista" class="section mayorista">
-      <span class="section-label">MAYORISTA</span>
       <h2>Básicos por cantidad</h2>
       
       <div class="grid">
