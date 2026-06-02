@@ -250,11 +250,11 @@ const products = [
       },
       {
         name: 'Blanca',
-        image: '/productos/bombacha-blanca-.png',
+        image: '/productos/bombacha-blanca.png',
       },
       {
         name: 'Negra',
-        image: '/productos/bombacha-negra-.png',
+        image: '/productos/bombacha-negra.png',
       },
     ],
     description: 'Bombacha por mayor. Consultar disponibilidad.',
