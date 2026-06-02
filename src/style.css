@@ -119,47 +119,6 @@ nav {
   font-size: 16px;
 }
 
-.cart-items {
-  display: grid;
-  gap: 18px;
-}
-
-.cart-item {
-  border-bottom: 1px solid #eadfd2;
-  padding-bottom: 14px;
-  display: flex;
-  justify-content: space-between;
-  gap: 16px;
-}
-
-.cart-item strong {
-  display: block;
-  margin-bottom: 6px;
-}
-
-.cart-item span {
-  color: #5d4a3d;
-  font-size: 14px;
-}
-
-.cart-item p {
-  font-weight: 700;
-  white-space: nowrap;
-}
-
-.cart-item small {
-  display: block;
-  margin-top: 4px;
-  color: #7b604b;
-  font-size: 12px;
-}
-
-.cart-item-actions {
-  display: grid;
-  justify-items: end;
-  gap: 10px;
-}
-
 .quantity-controls {
   display: flex;
   align-items: center;
@@ -191,88 +150,8 @@ nav {
   line-height: 1.4;
 }
 
-.cart-item {
-  display: grid;
-  grid-template-columns: 84px 1fr;
-  gap: 14px;
-  width: 100%;
-  padding: 16px 0;
-  border-bottom: 1px solid #ddd3c7;
-}
-
-.cart-item-content {
-  min-width: 0;
-}
-
-.cart-item-top {
-  display: grid;
-  gap: 10px;
-}
-
-.cart-item-main {
-  min-width: 0;
-}
-
-.cart-item-main strong {
-  display: block;
-  margin-bottom: 4px;
-}
-
-.cart-item-price {
-  font-weight: 700;
-  margin: 4px 0 0;
-}
-
 .quantity-controls {
   width: fit-content;
-}
-
-.cart-item-image {
-  width: 84px;
-  height: 84px;
-  object-fit: cover;
-  border-radius: 12px;
-  background: #f3eee7;
-  flex-shrink: 0;
-}
-
-.cart-item-content {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.cart-item-top {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  gap: 12px;
-}
-
-.cart-item-top strong {
-  display: block;
-  font-size: 16px;
-  margin-bottom: 4px;
-}
-
-.cart-item-top span {
-  display: block;
-  font-size: 14px;
-  color: #6b6258;
-}
-
-.cart-item-top small {
-  display: block;
-  margin-top: 4px;
-  font-size: 13px;
-  color: #8a6f4d;
-}
-
-.cart-item-top p {
-  margin: 0;
-  font-weight: 600;
-  white-space: nowrap;
 }
 
 .cart-total {
@@ -282,14 +161,6 @@ nav {
   display: flex;
   justify-content: space-between;
   font-size: 18px;
-}
-
-.cart-item-details {
-  display: grid;
-  gap: 2px;
-  margin: 4px 0;
-  color: #7b6b5d;
-  font-size: 13px;
 }
 
 .cart-items {

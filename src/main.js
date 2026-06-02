@@ -51,6 +51,14 @@ const products = [
         name: 'Verde',
         image: '/productos/boxer-vuk-azul.png',
       },
+      {
+        name: 'Gris',
+        image: '/productos/boxer-vuk-azul.png',
+      },
+      {
+        name: 'Bordo',
+        image: '/productos/boxer-vuk-azul.png',
+      },
   ],
   sizes: ['S', 'M', 'L', 'XL', 'XXL'],
   description: 'Boxers Vuk por mayor. Precio unitario con compra mínima de 3 unidades.',
@@ -62,13 +70,41 @@ const products = [
     name: 'Boxer Intermezzo',
     category: 'Mayorista',
     type: 'wholesale',
-    price: '$6.200 c/u · mínimo x3',
+    price: '$6.200 c/u',
     priceValue: 6200,
-    minQuantity: 3,
-    image: '/productos/boxer-intermezzo-estampado.png',
-    description: 'Boxers Intermezzo por mayor. Precio unitario con compra mínima de 3 unidades.',
+    minQuantity: 1,
+    image: '/productos/boxer-intermezzo-modelo-1.png',
+    optionLabel: 'Modelo',
+    colors: [
+      {
+        name: 'Modelo 1',
+        image: '/productos/boxer-intermezzo-modelo-1.png',
+      },
+      {
+        name: 'Modelo 2',
+        image: '/productos/boxer-intermezzo-modelo-2.png',
+      },
+      {
+        name: 'Modelo 3',
+        image: '/productos/boxer-intermezzo-modelo-3.png',
+      },
+      {
+        name: 'Modelo 4',
+        image: '/productos/boxer-intermezzo-modelo-4.png',
+      },
+      {
+        name: 'Modelo 5',
+        image: '/productos/boxer-intermezzo-modelo-5.png',
+      },
+      {
+        name: 'Modelo 6',
+        image: '/productos/boxer-intermezzo-modelo-6.png',
+      },
+    ],
+    sizes: ['M', 'L', 'XL'],
+    description: 'Boxer Intermezzo por mayor. Precio unitario.',
     available: true,
-    message: 'Hola, quiero consultar por Boxer Intermezzo por mayor. ¿Qué colores y talles tenés disponibles?'
+    message: 'Hola, quiero consultar por Boxer Intermezzo por mayor.',
   },
   {
     id: 'medias-largas',
@@ -227,7 +263,7 @@ const renderCartPanel = () => {
                 <strong>${item.name}</strong>
 
               <div class="cart-item-details">
-                ${item.selectedColor ? '<span>Color: ' + item.selectedColor + '</span>' : ''}
+                ${item.selectedColor ? '<span>' + (item.optionLabel || 'Color') + ': ' + item.selectedColor + '</span>' : ''}
                 ${item.selectedSize ? '<span>Talle: ' + item.selectedSize + '</span>' : ''}
               </div>
 
@@ -407,7 +443,7 @@ decreaseButtons.forEach((button) => {
 
       const orderItems = cart.map((item) => {
         const details = [
-          item.selectedColor ? `Color: ${item.selectedColor}` : '',
+          item.selectedColor ? `${item.optionLabel || 'Color'}: ${item.selectedColor}` : '',
           item.selectedSize ? `Talle: ${item.selectedSize}` : '',
         ].filter(Boolean).join('\n  ')
 
@@ -614,7 +650,7 @@ const openProductModal = (productId) => {
 
         ${product.colors ? `
           <div class="product-option">
-            <strong>Color</strong>
+            <strong>${product.optionLabel || 'Color'}</strong>
             <div class="option-buttons color-options">
               ${product.colors.map((color, index) => `
                 <button
