@@ -452,8 +452,8 @@ document.querySelector('#app').innerHTML = `
     <section class="hero">
       <div class="hero-text">
         <span>ROPA DE INVIERNO · ROSARIO</span>
-        <h1>Ropa de invierno por menor y básicos por mayor</h1>
-        <p>Abrigos de temporada, medias, boxers y básicos por cantidad. Consultá disponibilidad y coordinamos entrega en Rosario.</p>
+        <h1>Ropa de invierno y básicos para todos los días</h1>
+        <p>Abrigos por menor y básicos por cantidad para familias o revendedores. Comprá simple, elegí tus productos y coordinamos entrega en Rosario.</p>
         <div class="hero-buttons">
           <a href="#abrigos" class="btn primary">Ver abrigos</a>
           <a href="#mayorista" class="btn secondary">Ver mayorista</a>
