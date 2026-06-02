@@ -684,31 +684,38 @@ h1 {
   display: flex;
   overflow-x: auto;
   gap: 18px;
-  padding-bottom: 8px;
+  max-width: none;
+  margin: 28px 0 0;
+  padding: 0 6% 16px;
   scroll-snap-type: x mandatory;
   -webkit-overflow-scrolling: touch;
 
-  /* ocultar barra */
-  scrollbar-width: none;       /* Firefox */
-  -ms-overflow-style: none;    /* IE/Edge viejo */
-}
-
-.carousel-arrow {
-  display: none;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
 }
 
 .grid::-webkit-scrollbar {
   display: none;               /* Chrome, Edge, Safari */
 }
 
+#abrigos .grid {
+  justify-content: flex-start;
+  max-width: none;
+}
+
+.carousel-arrow {
+  display: none;
+}
+
 .product-card {
-  min-width: 75%;
-  flex: 0 0 auto;
+  flex: 0 0 78vw;
+  min-width: 78vw;
   scroll-snap-align: start;
 }
 
 .product-card img {
   height: 300px;
+  object-fit: cover;
 }
 
 .product-info {
