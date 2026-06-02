@@ -461,17 +461,6 @@ document.querySelector('#app').innerHTML = `
       </div>
     </section>
 
-    <section class="categories">
-      <a href="#abrigos">
-        <span>POR MENOR</span>
-        <strong>Abrigos</strong>
-      </a>
-      <a href="#mayorista">
-        <span>POR CANTIDAD</span>
-        <strong>Mayorista</strong>
-      </a>
-    </section>
-
     <section id="abrigos" class="section">
       <span class="section-label">POR MENOR</span>
       <h2>Abrigos de temporada</h2>
