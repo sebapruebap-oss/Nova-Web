@@ -428,16 +428,8 @@ const productCard = (product) => `
 `
 
 document.querySelector('#app').innerHTML = `
-<header class="header">
-  <div class="logo">AleAle</div>
-
-  <button class="cart-button" type="button">
-    Carrito 🛒 (0)
-  </button>
-
-  <button class="menu-toggle" aria-label="Abrir menú">
-    ☰
-  </button>
+<header>
+  <a href="#" class="logo">AleAle</a>
 
   <nav class="nav-menu">
     <a href="#abrigos">Abrigos</a>
@@ -446,6 +438,12 @@ document.querySelector('#app').innerHTML = `
     <a href="#envios">Envíos</a>
     <a href="#contacto">Contacto</a>
   </nav>
+
+  <button class="cart-button" type="button">
+    Carrito 🛒 (0)
+  </button>
+
+  <button class="menu-toggle" type="button">☰</button>
 </header>
 
   <main>
