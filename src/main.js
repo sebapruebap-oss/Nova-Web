@@ -75,6 +75,10 @@ const products = [
         image: '/productos/poleron-largo-beige.png',
       },
       {
+        name: 'Gris',
+        image: '/productos/poleron-largo-gris.png',
+      },
+      {
         name: 'Rojo',
         image: '/productos/poleron-largo-rojo.png',
       },
@@ -228,6 +232,34 @@ const products = [
     description: 'Medias caña. Talle único.',
     available: true,
     message: 'Hola, quiero consultar por Medias caña.',
+  },
+  {
+    id: 'bombacha',
+    name: 'Bombacha',
+    category: 'Mayorista',
+    type: 'wholesale',
+    price: '$2.200 c/u',
+    priceValue: 2200,
+    minQuantity: 1,
+    image: '/productos/bombacha-floral.png',
+    optionLabel: 'Modelo',
+    colors: [
+      {
+        name: 'Floral',
+        image: '/productos/bombacha-floral.png',
+      },
+      {
+        name: 'Blanca',
+        image: '/productos/bombacha-blanca-.png',
+      },
+      {
+        name: 'Negra',
+        image: '/productos/bombacha-negra-.png',
+      },
+    ],
+    description: 'Bombacha por mayor. Consultar disponibilidad.',
+    available: true,
+    message: 'Hola, quiero consultar por Bombacha.',
   }
 ]
 
