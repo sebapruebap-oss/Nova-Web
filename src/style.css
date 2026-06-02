@@ -121,8 +121,7 @@ nav {
 
 .cart-items {
   display: grid;
-  gap: 16px;
-  margin-bottom: 24px;
+  gap: 18px;
 }
 
 .cart-item {
@@ -193,10 +192,39 @@ nav {
 }
 
 .cart-item {
-  display: flex;
+  display: grid;
+  grid-template-columns: 84px 1fr;
   gap: 14px;
+  width: 100%;
   padding: 16px 0;
   border-bottom: 1px solid #ddd3c7;
+}
+
+.cart-item-content {
+  min-width: 0;
+}
+
+.cart-item-top {
+  display: grid;
+  gap: 10px;
+}
+
+.cart-item-main {
+  min-width: 0;
+}
+
+.cart-item-main strong {
+  display: block;
+  margin-bottom: 4px;
+}
+
+.cart-item-price {
+  font-weight: 700;
+  margin: 4px 0 0;
+}
+
+.quantity-controls {
+  width: fit-content;
 }
 
 .cart-item-image {
@@ -254,6 +282,76 @@ nav {
   display: flex;
   justify-content: space-between;
   font-size: 18px;
+}
+
+.cart-item-details {
+  display: grid;
+  gap: 2px;
+  margin: 4px 0;
+  color: #7b6b5d;
+  font-size: 13px;
+}
+
+.cart-items {
+  display: grid;
+  gap: 0;
+}
+
+.cart-item {
+  display: grid;
+  grid-template-columns: 84px 1fr;
+  gap: 14px;
+  width: 100%;
+  padding: 16px 0;
+  border-bottom: 1px solid #ddd3c7;
+}
+
+.cart-item-image {
+  width: 84px;
+  height: 84px;
+  object-fit: cover;
+  border-radius: 12px;
+  background: #dedbd6;
+}
+
+.cart-item-content {
+  min-width: 0;
+}
+
+.cart-item-header {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 12px;
+  align-items: start;
+}
+
+.cart-item-main {
+  min-width: 0;
+}
+
+.cart-item-main strong {
+  display: block;
+  margin-bottom: 4px;
+  line-height: 1.15;
+}
+
+.cart-item-details {
+  display: grid;
+  gap: 2px;
+  margin: 4px 0;
+  color: #7b6b5d;
+  font-size: 13px;
+}
+
+.cart-item-price {
+  margin: 4px 0 0;
+  font-weight: 700;
+  color: #2f241d;
+}
+
+.quantity-controls {
+  flex-shrink: 0;
+  width: fit-content;
 }
 
 .checkout-form {
@@ -520,6 +618,114 @@ h1 {
   min-width: 170px;
 }
 
+.product-modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(47, 36, 29, 0.45);
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+.product-modal-content {
+  position: relative;
+  width: min(900px, 100%);
+  max-height: 90vh;
+  overflow-y: auto;
+  background: #fffaf4;
+  border-radius: 24px;
+  box-shadow: 0 24px 70px rgba(47, 36, 29, 0.28);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.product-modal-close {
+  position: absolute;
+  top: 18px;
+  right: 20px;
+  border: none;
+  background: transparent;
+  color: #2f241d;
+  font-size: 34px;
+  cursor: pointer;
+  z-index: 2;
+}
+
+.product-modal-image {
+  background: #dedbd6;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.product-modal-image img {
+  width: 100%;
+  height: 100%;
+  max-height: 620px;
+  object-fit: contain;
+  display: block;
+}
+
+.product-modal-info {
+  padding: 56px 40px 40px;
+}
+
+.product-modal-info span {
+  display: inline-block;
+  margin-bottom: 12px;
+  font-size: 12px;
+  letter-spacing: 3px;
+  color: #7b6b5d;
+  text-transform: uppercase;
+}
+
+.product-modal-info h3 {
+  font-size: 36px;
+  margin: 0 0 10px;
+}
+
+.product-modal-info p {
+  color: #5d4a3d;
+  margin-bottom: 28px;
+}
+
+.product-option {
+  margin-bottom: 24px;
+}
+
+.product-option strong {
+  display: block;
+  margin-bottom: 10px;
+}
+
+.option-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.option-button {
+  border: 1px solid #d9cbbd;
+  background: #fffaf4;
+  color: #2f241d;
+  border-radius: 999px;
+  padding: 10px 14px;
+  cursor: pointer;
+  font-weight: 700;
+}
+
+.option-button.active {
+  background: #2f241d;
+  color: #fffaf4;
+  border-color: #2f241d;
+}
+
+.modal-add-to-cart {
+  margin-top: 8px;
+}
+
 .mayorista {
   background: #efe2d4;
 }
@@ -720,6 +926,53 @@ h1 {
 
 .product-info {
   padding: 22px;
+}
+
+.product-modal {
+  padding: 16px;
+  align-items: flex-end;
+}
+
+.product-modal-content {
+  grid-template-columns: 1fr;
+  max-height: 92vh;
+  border-radius: 22px 22px 0 0;
+}
+
+.product-modal-image img {
+  height: 320px;
+}
+
+.product-modal-info {
+  padding: 32px 24px 28px;
+}
+
+.product-modal-info h3 {
+  font-size: 30px;
+}
+
+.modal-quantity-controls {
+  display: inline-flex;
+  align-items: center;
+  gap: 18px;
+  border: 1px solid #d9cbbd;
+  border-radius: 999px;
+  padding: 8px 14px;
+}
+
+.modal-quantity-controls button {
+  border: none;
+  background: transparent;
+  color: #2f241d;
+  font-size: 20px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.modal-quantity-value {
+  min-width: 20px;
+  text-align: center;
+  font-weight: 700;
 }
 
 .floating-whatsapp {

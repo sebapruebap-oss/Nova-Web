@@ -36,12 +36,27 @@ const products = [
     type: 'wholesale',
     price: '$5.800 c/u · mínimo x3',
     priceValue: 5800,
-    minQuantity: 3,
+    minQuantity: 1,
     image: '/productos/boxer-vuk-azul.png',
-    description: 'Boxers Vuk por mayor. Precio unitario con compra mínima de 3 unidades.',
-    available: true,
-    message: 'Hola, quiero consultar por Boxer Vuk por mayor. ¿Qué colores y talles tenés disponibles?'
-  },
+    colors: [
+      {
+        name: 'Azul',
+        image: '/productos/boxer-vuk-azul.png',
+      },
+      {
+        name: 'Negro',
+        image: '/productos/boxer-vuk-azul.png',
+      },
+      {
+        name: 'Verde',
+        image: '/productos/boxer-vuk-azul.png',
+      },
+  ],
+  sizes: ['S', 'M', 'L', 'XL', 'XXL'],
+  description: 'Boxers Vuk por mayor. Precio unitario con compra mínima de 3 unidades.',
+  available: true,
+  message: 'Hola, quiero consultar por Boxer Vuk por mayor. ¿Qué colores y talles tenés disponibles?'
+},
   {
     id: 'boxer-intermezzo',
     name: 'Boxer Intermezzo',
@@ -97,20 +112,30 @@ const clearCart = () => {
   updateCartButton()
 }
 
-const addToCart = (productId) => {
+const addToCart = (productId, options = {}) => {
   const product = products.find((item) => item.id === productId)
 
   if (!product) return
 
-  const existingItem = cart.find((item) => item.id === productId)
-  const minimumQuantity = product.minQuantity || 1
+  const selectedColor = options.color || null
+  const selectedSize = options.size || null
+  const selectedImage = options.image || product.image
+  const selectedQuantity = options.quantity || product.minQuantity || 1
+
+  const cartItemId = `${productId}-${selectedColor || 'sin-color'}-${selectedSize || 'sin-talle'}`
+
+  const existingItem = cart.find((item) => item.cartItemId === cartItemId)
 
   if (existingItem) {
-    existingItem.quantity += 1
+    existingItem.quantity += selectedQuantity
   } else {
     cart.push({
       ...product,
-      quantity: minimumQuantity,
+      cartItemId,
+      selectedColor,
+      selectedSize,
+      image: selectedImage,
+      quantity: selectedQuantity,
     })
   }
 
@@ -119,8 +144,8 @@ const addToCart = (productId) => {
   renderCartPanel()
 }
 
-const increaseCartItem = (productId) => {
-  const item = cart.find((product) => product.id === productId)
+const increaseCartItem = (cartItemId) => {
+  const item = cart.find((cartItem) => cartItem.cartItemId === cartItemId)
 
   if (!item) return
 
@@ -131,17 +156,15 @@ const increaseCartItem = (productId) => {
   renderCartPanel()
 }
 
-const decreaseCartItem = (productId) => {
-  const item = cart.find((product) => product.id === productId)
+const decreaseCartItem = (cartItemId) => {
+  const item = cart.find((cartItem) => cartItem.cartItemId === cartItemId)
 
   if (!item) return
 
-  const minimumQuantity = item.minQuantity || 1
-
-  if (item.quantity > minimumQuantity) {
-    item.quantity -= 1
+  if (item.quantity <= 1) {
+    cart = cart.filter((cartItem) => cartItem.cartItemId !== cartItemId)
   } else {
-    cart = cart.filter((product) => product.id !== productId)
+    item.quantity -= 1
   }
 
   saveCart()
@@ -195,27 +218,31 @@ const renderCartPanel = () => {
 <div class="cart-items">
 <div class="cart-items">
   ${cart.map((item) => `
-    <div class="cart-item">
-      <img src="${item.image}" alt="${item.name}" class="cart-item-image">
+      <div class="cart-item">
+        <img src="${item.image}" alt="${item.name}" class="cart-item-image">
 
-      <div class="cart-item-content">
-        <div class="cart-item-top">
-          <div>
-            <strong>${item.name}</strong>
-            <span>${item.quantity} unidad${item.quantity > 1 ? 'es' : ''}</span>
-            ${item.minQuantity > 1 ? `<small>Mínimo x${item.minQuantity}</small>` : ''}
+        <div class="cart-item-content">
+          <div class="cart-item-header">
+            <div class="cart-item-main">
+                <strong>${item.name}</strong>
+
+              <div class="cart-item-details">
+                ${item.selectedColor ? '<span>Color: ' + item.selectedColor + '</span>' : ''}
+                ${item.selectedSize ? '<span>Talle: ' + item.selectedSize + '</span>' : ''}
+              </div>
+
+              <span>${item.quantity} unidad${item.quantity > 1 ? 'es' : ''}</span>
+              <p class="cart-item-price">${formatPrice((item.priceValue || 0) * item.quantity)}</p>
+            </div>
+
+            <div class="quantity-controls">
+              <button type="button" class="quantity-decrease" data-cart-item-id="${item.cartItemId}">−</button>
+              <span>${item.quantity}</span>
+              <button type="button" class="quantity-increase" data-cart-item-id="${item.cartItemId}">+</button>
+            </div>
           </div>
-
-          <p>${formatPrice((item.priceValue || 0) * item.quantity)}</p>
-        </div>
-
-        <div class="quantity-controls">
-          <button type="button" class="quantity-decrease" data-product-id="${item.id}">−</button>
-          <span>${item.quantity}</span>
-          <button type="button" class="quantity-increase" data-product-id="${item.id}">+</button>
         </div>
       </div>
-    </div>
   `).join('')}
 </div>
 
@@ -251,13 +278,13 @@ const decreaseButtons = document.querySelectorAll('.quantity-decrease')
 
 increaseButtons.forEach((button) => {
   button.addEventListener('click', () => {
-    increaseCartItem(button.dataset.productId)
+    increaseCartItem(button.dataset.cartItemId)
   })
 })
 
 decreaseButtons.forEach((button) => {
   button.addEventListener('click', () => {
-    decreaseCartItem(button.dataset.productId)
+    decreaseCartItem(button.dataset.cartItemId)
   })
 })
 
@@ -379,8 +406,13 @@ decreaseButtons.forEach((button) => {
       const customerNote = formData.get('note') || 'Sin nota'
 
       const orderItems = cart.map((item) => {
-        return `- ${item.name} x${item.quantity} — ${formatPrice((item.priceValue || 0) * item.quantity)}`
-      }).join('\n')
+        const details = [
+          item.selectedColor ? `Color: ${item.selectedColor}` : '',
+          item.selectedSize ? `Talle: ${item.selectedSize}` : '',
+        ].filter(Boolean).join('\n  ')
+
+        return `• ${item.name} x${item.quantity} — ${formatPrice((item.priceValue || 0) * item.quantity)}${details ? `\n  ${details}` : ''}`
+      }).join('\n\n')
 
       const message = `
       Hola, quiero hacer este pedido:
@@ -555,12 +587,158 @@ navLinks.forEach((link) => {
   })
 })
 
+const openProductModal = (productId) => {
+  const product = products.find((item) => item.id === productId)
+
+  if (!product) return
+
+  const firstColor = product.colors ? product.colors[0] : null
+  const firstSize = product.sizes ? product.sizes[0] : null
+  const selectedImage = firstColor ? firstColor.image : product.image
+
+  const modal = document.createElement('div')
+  modal.classList.add('product-modal')
+
+  modal.innerHTML = `
+    <div class="product-modal-content">
+      <button class="product-modal-close" type="button">×</button>
+
+      <div class="product-modal-image">
+        <img src="${selectedImage}" alt="${product.name}" class="modal-product-img">
+      </div>
+
+      <div class="product-modal-info">
+        <span>${product.category}</span>
+        <h3>${product.name}</h3>
+        <p>${product.price}</p>
+
+        ${product.colors ? `
+          <div class="product-option">
+            <strong>Color</strong>
+            <div class="option-buttons color-options">
+              ${product.colors.map((color, index) => `
+                <button
+                  type="button"
+                  class="option-button color-option ${index === 0 ? 'active' : ''}"
+                  data-color="${color.name}"
+                  data-image="${color.image}"
+                >
+                  ${color.name}
+                </button>
+              `).join('')}
+            </div>
+          </div>
+        ` : ''}
+
+        ${product.sizes ? `
+          <div class="product-option">
+            <strong>Talle</strong>
+            <div class="option-buttons size-options">
+              ${product.sizes.map((size, index) => `
+                <button
+                  type="button"
+                  class="option-button size-option ${index === 0 ? 'active' : ''}"
+                  data-size="${size}"
+                >
+                  ${size}
+                </button>
+              `).join('')}
+            </div>
+          </div>
+        ` : ''}
+
+        <div class="product-option">
+          <strong>Cantidad</strong>
+          <div class="modal-quantity-controls">
+            <button type="button" class="modal-quantity-decrease">−</button>
+            <span class="modal-quantity-value">${product.minQuantity || 1}</span>
+            <button type="button" class="modal-quantity-increase">+</button>
+          </div>
+        </div>
+
+        <button class="btn primary modal-add-to-cart" type="button">
+          Agregar al carrito
+        </button>
+      </div>
+    </div>
+  `
+
+  document.body.appendChild(modal)
+
+  const closeButton = modal.querySelector('.product-modal-close')
+  const image = modal.querySelector('.modal-product-img')
+  const colorButtons = modal.querySelectorAll('.color-option')
+  const sizeButtons = modal.querySelectorAll('.size-option')
+  const addButton = modal.querySelector('.modal-add-to-cart')
+  const quantityValue = modal.querySelector('.modal-quantity-value')
+  const quantityDecrease = modal.querySelector('.modal-quantity-decrease')
+  const quantityIncrease = modal.querySelector('.modal-quantity-increase')
+
+  let selectedColor = firstColor ? firstColor.name : null
+  let selectedSize = firstSize
+  let selectedQuantity = product.minQuantity || 1
+
+  closeButton.addEventListener('click', () => {
+    modal.remove()
+  })
+
+  colorButtons.forEach((button) => {
+    button.addEventListener('click', () => {
+      colorButtons.forEach((item) => item.classList.remove('active'))
+      button.classList.add('active')
+
+      selectedColor = button.dataset.color
+      image.src = button.dataset.image
+    })
+  })
+
+  sizeButtons.forEach((button) => {
+    button.addEventListener('click', () => {
+      sizeButtons.forEach((item) => item.classList.remove('active'))
+      button.classList.add('active')
+
+      selectedSize = button.dataset.size
+    })
+  })
+
+  quantityDecrease.addEventListener('click', () => {
+    if (selectedQuantity <= 1) return
+
+    selectedQuantity -= 1
+    quantityValue.textContent = selectedQuantity
+  })
+
+  quantityIncrease.addEventListener('click', () => {
+    selectedQuantity += 1
+    quantityValue.textContent = selectedQuantity
+  })
+
+  addButton.addEventListener('click', () => {
+    addToCart(productId, {
+      color: selectedColor,
+      size: selectedSize,
+      image: image.src,
+      quantity: selectedQuantity,
+    })
+
+    modal.remove()
+  })
+}
+
 const addToCartButtons = document.querySelectorAll('.add-to-cart')
 
 addToCartButtons.forEach((button) => {
   button.addEventListener('click', () => {
     const productId = button.dataset.productId
-    addToCart(productId)
+    const product = products.find((item) => item.id === productId)
+
+    if (!product) return
+
+    if (product.colors || product.sizes) {
+      openProductModal(productId)
+    } else {
+      addToCart(productId)
+    }
   })
 })
 
