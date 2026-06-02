@@ -434,7 +434,7 @@ h1 {
   position: relative;
   max-width: 1180px;
   margin: 32px auto 0;
-  overflow: hidden;
+  overflow: visible;
 }
 
 #abrigos .grid {
@@ -454,6 +454,14 @@ h1 {
   flex: 0 0 340px;
   min-width: 340px;
   scroll-snap-align: start;
+}
+
+#abrigos .carousel-prev {
+  left: -56px;
+}
+
+#abrigos .carousel-next {
+  right: -56px;
 }
 
 .carousel-prev {
