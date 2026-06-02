@@ -4,30 +4,60 @@ const WHATSAPP_NUMBER = '5493416279719'
 
 const products = [
   {
-    id: 'campera-corta',
-    name: 'Campera corta',
+    id: 'sweater-lana-roto',
+    name: 'Sweater de lana roto',
     category: 'Abrigos',
     type: 'retail',
-    price: '$10.000',
-    priceValue: 10000,
+    price: '$7.200',
+    priceValue: 7200,
     minQuantity: 1,
-    image: '/productos/campera-corta-roja.png',
-    description: 'Campera corta de invierno. Consultar talles, colores y disponibilidad.',
+    image: '/productos/sweater-lana-roto-blanco.png',
+    optionLabel: 'Color',
+    colors: [
+      {
+        name: 'Blanco',
+        image: '/productos/sweater-lana-roto-blanco.png',
+      },
+      {
+        name: 'Gris',
+        image: '/productos/sweater-lana-roto-gris.png',
+      },
+      {
+        name: 'Negro',
+        image: '/productos/sweater-lana-roto-negro.png',
+      },
+    ],
+    description: 'Sweater de lana con terminación rota. Consultar disponibilidad.',
     available: true,
-    message: 'Hola, quiero consultar por la Campera corta. ¿Qué talles y colores tenés disponibles?'
+    message: 'Hola, quiero consultar por el Sweater de lana roto.',
   },
   {
-    id: 'campera-larga',
-    name: 'Campera larga',
+    id: 'pulover-corto',
+    name: 'Pulover corto',
     category: 'Abrigos',
     type: 'retail',
-    price: '$14.000',
-    priceValue: 14000,
+    price: '$6.800',
+    priceValue: 6800,
     minQuantity: 1,
-    image: '/productos/campera-larga-azul.png',
-    description: 'Campera larga de invierno. Consultar talles, colores y disponibilidad.',
+    image: '/productos/pulover-corto-negro.png',
+    optionLabel: 'Color',
+    colors: [
+      {
+        name: 'Negro',
+        image: '/productos/pulover-corto-negro.png',
+      },
+      {
+        name: 'Rojo',
+        image: '/productos/pulover-corto-rojo.png',
+      },
+      {
+        name: 'Verde',
+        image: '/productos/pulover-corto-verde.png',
+      },
+    ],
+    description: 'Pulover corto de lana. Consultar disponibilidad.',
     available: true,
-    message: 'Hola, quiero consultar por la Campera larga. ¿Qué talles y colores tenés disponibles?'
+    message: 'Hola, quiero consultar por el Pulover corto.',
   },
   {
     id: 'boxer-vuk',
