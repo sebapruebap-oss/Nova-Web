@@ -423,6 +423,40 @@ h1 {
 }
 
 .carousel-prev {
+  left: -56px;
+}
+
+.carousel-next {
+  right: -56px;
+}
+
+#abrigos .carousel-wrap {
+  position: relative;
+  max-width: 1180px;
+  margin: 32px auto 0;
+  overflow: hidden;
+}
+
+#abrigos .grid {
+  display: flex;
+  gap: 28px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  padding: 0 0 18px;
+  scrollbar-width: none;
+}
+
+#abrigos .grid::-webkit-scrollbar {
+  display: none;
+}
+
+#abrigos .product-card {
+  flex: 0 0 340px;
+  min-width: 340px;
+  scroll-snap-align: start;
+}
+
+.carousel-prev {
   left: -64px;
 }
 
@@ -439,10 +473,6 @@ h1 {
   display: none;
 }
 
-#abrigos .grid {
-  justify-content: center;
-  max-width: 860px;
-}
 
 .product-card {
   background: #fffaf4;

@@ -60,6 +60,30 @@ const products = [
     message: 'Hola, quiero consultar por el Pulover corto.',
   },
   {
+    id: 'poleron-largo',
+    name: 'Polerón largo',
+    category: 'Abrigos',
+    type: 'retail',
+    price: '$6.800',
+    priceValue: 6800,
+    minQuantity: 1,
+    image: '/productos/poleron-largo-beige.png',
+    optionLabel: 'Color',
+    colors: [
+      {
+        name: 'Beige',
+        image: '/productos/poleron-largo-beige.png',
+      },
+      {
+        name: 'Rojo',
+        image: '/productos/poleron-largo-rojo.png',
+      },
+    ],
+    description: 'Polerón largo de lana. Talle único. Consultar disponibilidad.',
+    available: true,
+    message: 'Hola, quiero consultar por el Polerón largo.',
+  },
+  {
     id: 'boxer-vuk',
     name: 'Boxer Vuk',
     category: 'Mayorista',
@@ -587,10 +611,17 @@ document.querySelector('#app').innerHTML = `
       </div>
     </section>
 
-    <section id="abrigos" class="section">
+    <section id="abrigos" class="section abrigos">
       <h2>Abrigos de temporada</h2>
-      <div class="grid">
-        ${products.filter(product => product.category === 'Abrigos').map(productCard).join('')}
+
+      <div class="carousel-wrap">
+        <button class="carousel-arrow carousel-prev" type="button" data-target="abrigos">‹</button>
+
+        <div class="grid" id="abrigos-grid">
+          ${products.filter((product) => product.category === 'Abrigos').map(productCard).join('')}
+        </div>
+
+        <button class="carousel-arrow carousel-next" type="button" data-target="abrigos">›</button>
       </div>
     </section>
 
@@ -855,9 +886,17 @@ carouselButtons.forEach((button) => {
 
     if (!carousel) return
 
+    const firstCard = carousel.querySelector('.product-card')
+    if (!firstCard) return
+
+    const gap = parseInt(getComputedStyle(carousel).gap) || 0
+    const cardWidth = firstCard.offsetWidth + gap
     const direction = button.classList.contains('carousel-next') ? 1 : -1
-    carousel.scrollBy({
-      left: direction * 420,
+
+    const nextPosition = carousel.scrollLeft + direction * cardWidth
+
+    carousel.scrollTo({
+      left: nextPosition < cardWidth / 2 ? 0 : nextPosition,
       behavior: 'smooth',
     })
   })
