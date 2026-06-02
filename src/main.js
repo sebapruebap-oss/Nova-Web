@@ -468,10 +468,17 @@ document.querySelector('#app').innerHTML = `
 
     <section id="mayorista" class="section mayorista">
       <h2>Básicos por cantidad</h2>
+
+      <div class="carousel-wrap">
+        <button class="carousel-arrow carousel-prev" type="button" data-target="mayorista">‹</button>
       
-      <div class="grid">
-        ${products.filter(product => product.category === 'Mayorista').map(productCard).join('')}
+        <div class="grid" id="mayorista-grid">
+          ${products.filter(product => product.category === 'Mayorista').map(productCard).join('')}
+        </div>
+      
+        <button class="carousel-arrow carousel-next" type="button" data-target="mayorista">›</button>
       </div>
+      
       <a class="btn primary" target="_blank" href="${whatsappLink('Hola, quiero consultar precios por mayor de medias, boxers y básicos. ¿Me pasás la lista disponible?')}">
         Pedir lista mayorista
       </a>
@@ -563,6 +570,23 @@ const cartPanel = document.querySelector('.cart-panel')
 cartButton.addEventListener('click', () => {
   renderCartPanel()
   cartPanel.classList.add('active')
+})
+
+const carouselButtons = document.querySelectorAll('.carousel-arrow')
+
+carouselButtons.forEach((button) => {
+  button.addEventListener('click', () => {
+    const target = button.dataset.target
+    const carousel = document.querySelector(`#${target}-grid`)
+
+    if (!carousel) return
+
+    const direction = button.classList.contains('carousel-next') ? 1 : -1
+    carousel.scrollBy({
+      left: direction * 420,
+      behavior: 'smooth',
+    })
+  })
 })
 
 updateCartButton()
