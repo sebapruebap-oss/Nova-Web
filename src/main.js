@@ -40,24 +40,24 @@ const products = [
     image: '/productos/boxer-vuk-azul.png',
     colors: [
       {
-        name: 'Azul',
+        name: 'Azul Marino',
         image: '/productos/boxer-vuk-azul.png',
       },
       {
         name: 'Negro',
-        image: '/productos/boxer-vuk-azul.png',
+        image: '/productos/boxer-vuk-negro.png',
       },
       {
         name: 'Verde',
-        image: '/productos/boxer-vuk-azul.png',
+        image: '/productos/boxer-vuk-verde.png',
       },
       {
-        name: 'Gris',
-        image: '/productos/boxer-vuk-azul.png',
+        name: 'Gris Melange',
+        image: '/productos/boxer-vuk-gris.png',
       },
       {
         name: 'Bordo',
-        image: '/productos/boxer-vuk-azul.png',
+        image: '/productos/boxer-vuk-bordo.png',
       },
   ],
   sizes: ['S', 'M', 'L', 'XL', 'XXL'],
@@ -77,27 +77,27 @@ const products = [
     optionLabel: 'Modelo',
     colors: [
       {
-        name: 'Modelo 1',
+        name: '1',
         image: '/productos/boxer-intermezzo-modelo-1.png',
       },
       {
-        name: 'Modelo 2',
+        name: '2',
         image: '/productos/boxer-intermezzo-modelo-2.png',
       },
       {
-        name: 'Modelo 3',
+        name: '3',
         image: '/productos/boxer-intermezzo-modelo-3.png',
       },
       {
-        name: 'Modelo 4',
+        name: '4',
         image: '/productos/boxer-intermezzo-modelo-4.png',
       },
       {
-        name: 'Modelo 5',
+        name: '5',
         image: '/productos/boxer-intermezzo-modelo-5.png',
       },
       {
-        name: 'Modelo 6',
+        name: '6',
         image: '/productos/boxer-intermezzo-modelo-6.png',
       },
     ],
@@ -111,26 +111,56 @@ const products = [
     name: 'Medias largas',
     category: 'Mayorista',
     type: 'wholesale',
-    price: '$1.300 c/u · mínimo x6',
+    price: '$1.300 c/u',
     priceValue: 1300,
-    minQuantity: 6,
-    image: '/productos/medias-largas-rayadas.png',
-    description: 'Medias largas por mayor. Precio unitario con compra mínima de 6 unidades.',
+    minQuantity: 1,
+    image: '/productos/medias-largas-modelo-1.png',
+    optionLabel: 'Modelo',
+    colors: [
+      {
+        name: '1',
+        image: '/productos/medias-largas-modelo-1.png',
+      },
+      {
+        name: '2',
+        image: '/productos/medias-largas-modelo-2.png',
+      },
+    ],
+    description: 'Medias largas. Talle único.',
     available: true,
-    message: 'Hola, quiero consultar por Medias largas por mayor. ¿Qué modelos tenés disponibles?'
+    message: 'Hola, quiero consultar por Medias largas.',
   },
   {
     id: 'medias-cana',
     name: 'Medias caña',
     category: 'Mayorista',
     type: 'wholesale',
-    price: '$1.300 c/u · mínimo x6',
+    price: '$1.300 c/u',
     priceValue: 1300,
-    minQuantity: 6,
-    image: '/productos/medias-cortas-beige.png',
-    description: 'Medias caña por mayor. Precio unitario con compra mínima.',
+    minQuantity: 1,
+    image: '/productos/medias-cana-modelo-1.png',
+    optionLabel: 'Modelo',
+    colors: [
+      {
+        name: '1',
+        image: '/productos/medias-cana-modelo-1.png',
+      },
+      {
+        name: '2',
+        image: '/productos/medias-cana-modelo-2.png',
+      },
+      {
+        name: '3',
+        image: '/productos/medias-cana-modelo-3.png',
+      },
+      {
+        name: '4',
+        image: '/productos/medias-cana-modelo-4.png',
+      },
+    ],
+    description: 'Medias caña. Talle único.',
     available: true,
-    message: 'Hola, quiero consultar por Medias caña por mayor.'
+    message: 'Hola, quiero consultar por Medias caña.',
   }
 ]
 
