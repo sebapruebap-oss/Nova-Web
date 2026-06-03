@@ -103,7 +103,7 @@ const products = [
   {
     id: 'boxer-vuk',
     name: 'Boxer Vuk',
-    category: 'Básicos',
+    category: 'Mayorista',
     type: 'wholesale',
     price: '$5.800',
     priceValue: 5800,
@@ -139,7 +139,7 @@ const products = [
   {
     id: 'boxer-intermezzo',
     name: 'Boxer Intermezzo',
-    category: 'Básicos',
+    category: 'Mayorista',
     type: 'wholesale',
     price: '$6.200',
     priceValue: 6200,
@@ -180,7 +180,7 @@ const products = [
   {
     id: 'medias-largas',
     name: 'Medias largas',
-    category: 'Básicos',
+    category: 'Mayorista',
     type: 'wholesale',
     price: '$1.300',
     priceValue: 1300,
@@ -204,7 +204,7 @@ const products = [
   {
     id: 'medias-cana',
     name: 'Medias caña',
-    category: 'Básicos',
+    category: 'Mayorista',
     type: 'wholesale',
     price: '$1.300',
     priceValue: 1300,
@@ -236,7 +236,7 @@ const products = [
   {
     id: 'bombacha',
     name: 'Bombacha',
-    category: 'Básicos',
+    category: 'Mayorista',
     type: 'wholesale',
     price: '$2.200',
     priceValue: 2200,
@@ -614,7 +614,7 @@ const productCard = (product) => `
   <article class="product-card product-${product.id}">
     <img src="${product.image}" alt="${product.name}">
     <div class="product-info">
-      <span>${product.category}</span>
+      <span>${product.category === 'Mayorista' ? 'Básicos' : product.category}</span>
       <h3>${product.name}</h3>
       <p>${product.price}</p>
      <button class="btn primary add-to-cart" data-product-id="${product.id}">
