@@ -1011,7 +1011,9 @@ footer a {
 }
 
 #abrigos .product-card {
-  flex: 0 0 60%;
+  flex: 0 0 84% !important;
+  min-width: 84% !important;
+  max-width: 84% !important;
 }
 
 #abrigos .product-card img {
