@@ -818,6 +818,20 @@ h1 {
   max-width: none;
 }
 
+#abrigos .product-card img {
+  height: 360px;
+  object-fit: cover;
+  object-position: center;
+}
+
+#abrigos .product-card:nth-child(1) img {
+  object-position: center 42%;
+}
+
+#abrigos .product-card:nth-child(2) img {
+  object-position: center 45%;
+}
+
 .carousel-arrow {
   display: none;
 }
