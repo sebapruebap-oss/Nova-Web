@@ -103,7 +103,7 @@ const products = [
   {
     id: 'boxer-vuk',
     name: 'Boxer Vuk',
-    category: 'Mayorista',
+    category: 'Básicos',
     type: 'wholesale',
     price: '$5.800',
     priceValue: 5800,
@@ -139,7 +139,7 @@ const products = [
   {
     id: 'boxer-intermezzo',
     name: 'Boxer Intermezzo',
-    category: 'Mayorista',
+    category: 'Básicos',
     type: 'wholesale',
     price: '$6.200',
     priceValue: 6200,
@@ -180,7 +180,7 @@ const products = [
   {
     id: 'medias-largas',
     name: 'Medias largas',
-    category: 'Mayorista',
+    category: 'Básicos',
     type: 'wholesale',
     price: '$1.300',
     priceValue: 1300,
@@ -204,7 +204,7 @@ const products = [
   {
     id: 'medias-cana',
     name: 'Medias caña',
-    category: 'Mayorista',
+    category: 'Básicos',
     type: 'wholesale',
     price: '$1.300',
     priceValue: 1300,
@@ -236,7 +236,7 @@ const products = [
   {
     id: 'bombacha',
     name: 'Bombacha',
-    category: 'Mayorista',
+    category: 'Básicos',
     type: 'wholesale',
     price: '$2.200',
     priceValue: 2200,
@@ -648,7 +648,7 @@ document.querySelector('#app').innerHTML = `
       <div class="hero-text">
         <span>ROPA DE INVIERNO · ROSARIO</span>
         <h1>Abrigos y básicos para todos los días</h1>
-        <p>Ropa de invierno por menor y básicos por cantidad. Comprá simple y coordinamos entrega en Rosario.</p>
+        <p>Ropa de invierno y básicos por cantidad. Comprá simple y coordinamos entrega en Rosario.</p>
         <div class="hero-buttons">
           <a href="#abrigos" class="btn primary">Ver abrigos</a>
           <a href="#mayorista" class="btn secondary">Ver mayorista</a>
@@ -718,7 +718,7 @@ document.querySelector('#app').innerHTML = `
 
   <footer id="contacto" class="footer">
     <h2>AleAle</h2>
-    <p>Ropa de invierno por menor y básicos por mayor.</p>
+    <p>Ropa de invierno y básicos por mayor.</p>
     <div>
       <a target="_blank" href="${whatsappLink('Hola, estoy viendo la página de AleAle y quería hacer una consulta.')}">WhatsApp</a>
       <a href="https://instagram.com/aleale_lenceria" target="_blank">Instagram</a>
@@ -776,7 +776,7 @@ const openProductModal = (productId) => {
       </div>
 
       <div class="product-modal-info">
-        <span>${product.category}</span>
+        <span>${product.category === 'Mayorista' ? 'Básicos' : product.category}</span>
         <h3>${product.name}</h3>
         <p>${product.price}</p>
 
