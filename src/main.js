@@ -817,7 +817,7 @@ const openProductModal = (productId) => {
 
         <div class="product-option">
           <strong>Cantidad</strong>
-          <div class="modal-quantity-controls">
+          <div class="quantity-controls modal-quantity-controls">
             <button type="button" class="modal-quantity-decrease">−</button>
             <span class="modal-quantity-value">${product.minQuantity || 1}</span>
             <button type="button" class="modal-quantity-increase">+</button>
