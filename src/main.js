@@ -611,7 +611,7 @@ const whatsappLink = (message) => {
 }
 
 const productCard = (product) => `
-  <article class="product-card">
+  <article class="product-card product-${product.id}">
     <img src="${product.image}" alt="${product.name}">
     <div class="product-info">
       <span>${product.category}</span>
@@ -681,11 +681,7 @@ document.querySelector('#app').innerHTML = `
         </div>
       
         <button class="carousel-arrow carousel-next" type="button" data-target="mayorista">›</button>
-      </div>
-      
-      <a class="btn primary" target="_blank" href="${whatsappLink('Hola, quiero consultar precios por mayor de medias, boxers y básicos. ¿Me pasás la lista disponible?')}">
-        Pedir lista mayorista
-      </a>
+      </div>  
     </section>
 
     <section id="como-comprar" class="section steps">
@@ -699,13 +695,13 @@ document.querySelector('#app').innerHTML = `
         </div>
         <div>
           <strong>02</strong>
-          <h3>Consultanos por WhatsApp</h3>
-          <p>Confirmamos disponibilidad, talles, colores y precio final.</p>
+          <h3>Armá tu pedido</h3>
+          <p>Elegí modelo, color, talle y cantidad. Sumalo al carrito y completá tus datos.</p>
         </div>
         <div>
           <strong>03</strong>
           <h3>Coordinamos entrega</h3>
-          <p>Retiro o entrega en Rosario. Otras zonas se consultan.</p>
+          <p>Recibimos el pedido, lo armamos y coordinamos si lo retirás o te lo enviamos.</p>
         </div>
       </div>
     </section>
