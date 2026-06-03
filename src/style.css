@@ -1010,6 +1010,10 @@ footer a {
   max-width: none;
 }
 
+#abrigos .product-card {
+  flex: 0 0 84%;
+}
+
 #abrigos .product-card img {
   height: 360px;
   object-fit: cover;
