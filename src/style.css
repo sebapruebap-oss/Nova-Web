@@ -834,7 +834,7 @@ h1 {
 
 .product-poleron-largo img {
   object-fit: contain;
-  transform: scale(0.9);
+  transform: scale(0.85);
 }
 
 .carousel-arrow {
