@@ -260,6 +260,32 @@ const products = [
     description: 'Bombacha por mayor. Consultar disponibilidad.',
     available: true,
     message: 'Hola, quiero consultar por Bombacha.',
+  },
+  {
+    id: 'pack-colaless-microfibra-estampado',
+    name: 'Colaless microfibra estampado',
+    category: 'Mayorista',
+    type: 'wholesale',
+    price: '$4.200 pack x3',
+    priceValue: 4200,
+    minQuantity: 1,
+    image: '/productos/colaless-microfibra-estampado.png',
+    description: 'Pack x3. Modelos sujetos a disponibilidad. Coordinamos por WhatsApp.',
+    available: true,
+    message: 'Hola, quiero consultar por el pack x3 de colaless microfibra estampado.',
+  },
+  {
+    id: 'pack-tiro-corto-liso-algodon',
+    name: 'Tiro corto liso algodón',
+    category: 'Mayorista',
+    type: 'wholesale',
+    price: '$6.200 pack x3',
+    priceValue: 6200,
+    minQuantity: 1,
+    image: '/productos/tiro-corto-liso-algodon.png',
+    description: 'Pack x3. Modelos sujetos a disponibilidad. Coordinamos por WhatsApp.',
+    available: true,
+    message: 'Hola, quiero consultar por el pack x3 de tiro corto liso algodón.',
   }
 ]
 
