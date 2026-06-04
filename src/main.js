@@ -568,7 +568,7 @@ decreaseButtons.forEach((button) => {
       const customerAddress = formData.get('address')
       const customerDelivery = formData.get('delivery')
       const customerPayment = formData.get('payment')
-      const customerNote = formData.get('note') || 'Sin nota'
+      const customerNote = formData.get('customerNote')?.trim() || 'Sin nota'
 
       const orderItems = cart.map((item) => {
         const details = [
