@@ -1030,11 +1030,6 @@ footer a {
   object-position: center 38%;
 }
 
-.product-poleron-largo img {
-  object-fit: contain;
-  transform: scale(0.85);
-}
-
 .carousel-arrow {
   display: none;
 }
