@@ -101,19 +101,20 @@ nav {
 .cart-panel {
   position: fixed;
   top: 0;
-  right: -100%;
+  right: 0;
+  transform: translateX(100%);
   width: min(380px, 92vw);
   height: 100vh;
   background: #fffaf4;
   z-index: 50;
   padding: 28px;
   box-shadow: -10px 0 30px rgba(0, 0, 0, 0.18);
-  transition: right 0.25s ease;
+  transition: transform 0.25s ease;
   overflow-y: auto;
 }
 
 .cart-panel.active {
-  right: 0;
+  transform: translateX(0);
 }
 
 .cart-panel-header {
