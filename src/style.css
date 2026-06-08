@@ -1,22 +1,25 @@
 :root {
-  --bg: #fbfaf7;
-  --section-bg: #fbfaf7;
-  --card-bg: #ffffff;
+  --bg: #fbf7f2;
+  --section-bg: #fffaf6;
+  --card-bg: #fffdfb;
 
-  --text: #2f2a25;
-  --muted: #6f746b;
+  --text: #302722;
+  --muted: #766960;
 
-  --green: #7f9994;
-  --green-dark: #5f7f7a;
-  --green-soft: #edf4f1;
+  --green: #78958d;
+  --green-dark: #4f716a;
+  --green-soft: #e8f0ec;
 
-  --yellow-soft: #f4d27a;
-  --rose-soft: #f7d9df;
+  --rose: #d69b9f;
+  --rose-soft: #f6e5e4;
 
-  --border: #e6e2da;
-  --product-bg: #f1f1ee;
+  --yellow-soft: #f2e3b9;
+  --cream: #f7efe5;
 
-  --shadow: rgba(60, 70, 65, 0.08);
+  --border: #e7ddd3;
+  --product-bg: #f1eeea;
+
+  --shadow: rgba(73, 57, 47, 0.1);
 }
 
 * {
@@ -325,14 +328,18 @@ nav {
   padding: 8px;
 }
 
-.hero { 
-  padding: 80px 6%;
-  min-height: 70vh;
-  display: flex;
+.hero {
+  padding: 120px 6%;
+  min-height: 620px;
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
   align-items: center;
-  background: var(--bg);
+  gap: 48px;
   position: relative;
   overflow: hidden;
+  background:
+    radial-gradient(circle at 85% 25%, var(--rose-soft) 0, transparent 30%),
+    linear-gradient(135deg, var(--cream), var(--section-bg));
 }
 
 .hero::before {
@@ -360,7 +367,69 @@ nav {
 }
 
 .hero-text {
-  max-width: 720px;
+  max-width: 560px;
+  position: relative;
+  margin-left: 120px;
+  z-index: 2;
+}
+
+.hero-text span {
+  display: block;
+  white-space: nowrap;
+  font-size: 11px;
+  letter-spacing: 4px;
+  line-height: 1;
+  margin-bottom: 28px;
+}
+
+.hero-visual {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  z-index: 2;
+}
+
+.hero-brand-card {
+  width: min(100%, 420px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.hero-brand-card img {
+  width: 360px;
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+.hero-flower-left,
+.hero-flower-right {
+  position: absolute;
+  width: 110px;
+  height: auto;
+  opacity: 0.9;
+  z-index: 1;
+}
+
+.hero-flower-left {
+  top: 24px;
+  left: 12px;
+  transform: scaleX(-1);
+}
+
+.hero-flower-right {
+  top: 24px;
+  right: 12px;
+}
+
+.mobile-header-logo {
+  display: none;
+}
+
+.mobile-break {
+  display: none;
 }
 
 .hero span,
@@ -445,12 +514,14 @@ h1 {
   box-shadow: 0 14px 26px rgba(75, 46, 42, 0.22);
 }
 
-.btn:hover,
-.product-card a:hover,
-.add-to-cart:hover {
-  background: var(--green);
-  transform: translateY(-1px);
-  opacity: 1;
+@media (hover: hover) and (pointer: fine) {
+  .btn:hover,
+  .product-card a:hover,
+  .add-to-cart:hover {
+    background: var(--green);
+    transform: translateY(-1px);
+    opacity: 1;
+  }
 }
 
 .categories {
@@ -1010,8 +1081,9 @@ footer a {
 }
 
   .hero {
-    padding: 60px 6%;
+    padding: 58px 22px 70px;
     min-height: auto;
+    display: block;
   }
 
   .hero p {
@@ -1039,6 +1111,66 @@ footer a {
 
 .grid::-webkit-scrollbar {
   display: none;               /* Chrome, Edge, Safari */
+}
+
+.hero-text {
+  width: 100%;
+  max-width: none;
+  margin-left: 0;
+  position: relative;
+  z-index: 2;
+}
+
+.hero-text h1 {
+  font-size: 40px;
+  line-height: 1.2;
+  max-width: 100%;
+  margin-bottom: 24px;
+}
+
+.hero-text p {
+  max-width: 330px;
+  font-size: 16px;
+  line-height: 1.5;
+  margin-bottom: 30px;
+}
+
+.hero-text span {
+  display: block;
+  white-space: nowrap;
+  font-size: 11px;
+  letter-spacing: 4px;
+  line-height: 1;
+  margin-bottom: 45px;
+}
+
+.hero-brand-card {
+  display: none;
+}
+
+.hero-flower-left {
+  display: none;
+}
+
+.hero-flower-right {
+  display: block;
+  width: 80px;
+  right: -5px;
+  top: 15px;
+}
+
+.logo-text {
+  display: none;
+}
+
+.mobile-header-logo {
+  display: block;
+  width: 70px;
+  height: auto;
+}
+
+.mobile-break {
+  display: block;
 }
 
 #abrigos .grid,
@@ -1108,6 +1240,18 @@ footer a {
 
 .product-modal-info h3 {
   font-size: 30px;
+}
+
+.hero-buttons .btn {
+  -webkit-tap-highlight-color: transparent;
+}
+
+.hero-buttons .btn:active {
+  transform: scale(0.98);
+}
+
+.hero-buttons .btn:focus {
+  outline: none;
 }
 
 .modal-quantity-controls {

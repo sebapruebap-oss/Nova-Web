@@ -660,7 +660,15 @@ const productCard = (product) => `
 
 document.querySelector('#app').innerHTML = `
 <header>
-  <a href="#" class="logo">AleAle</a>
+  <a href="#" class="logo">
+    <span class="logo-text">AleAle</span>
+
+    <img
+      src="/imagenes/logo-aleale-floral.png"
+      alt="AleAle"
+      class="mobile-header-logo"
+    >
+  </a>
 
   <nav class="nav-menu">
     <a href="#abrigos">Abrigos</a>
@@ -681,13 +689,29 @@ document.querySelector('#app').innerHTML = `
     <section class="hero">
       <div class="hero-text">
         <span>ROPA DE INVIERNO · ROSARIO</span>
-        <h1>Abrigos y básicos para todos los días</h1>
-        <p>Ropa de invierno y básicos por cantidad. Comprá simple y coordinamos entrega en Rosario.</p>
+        <h1>
+          Abrigos y básicos
+          <br class="mobile-break">
+          para todos
+          <br class="mobile-break">
+          los días
+        </h1>
+        <p>Ropa de invierno y básicos por cantidad. Comprá simple y coordinamos en Rosario.</p>
+
         <div class="hero-buttons">
           <a href="#abrigos" class="btn primary">Ver abrigos</a>
           <a href="#mayorista" class="btn secondary">Ver mayorista</a>
         </div>
       </div>
+
+      <div class="hero-visual">
+        <div class="hero-brand-card">
+          <img src="/imagenes/logo-aleale-floral.png" alt="Logo floral de AleAle">
+        </div>
+      </div>
+
+      <img class="hero-flower hero-flower-left" src="/imagenes/floral-left.png" alt="">
+      <img class="hero-flower hero-flower-right" src="/imagenes/floral-right.png" alt="">
     </section>
 
     <section id="abrigos" class="section abrigos">
