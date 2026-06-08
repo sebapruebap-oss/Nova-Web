@@ -350,6 +350,14 @@ const decreaseCartItem = (cartItemId) => {
   renderCartPanel()
 }
 
+const removeCartItem = (cartItemId) => {
+  cart = cart.filter((item) => item.cartItemId !== cartItemId)
+
+  saveCart()
+  updateCartButton()
+  renderCartPanel()
+}
+
 const getCartTotalItems = () => {
   return cart.reduce((total, item) => total + item.quantity, 0)
 }
@@ -413,10 +421,15 @@ const renderCartPanel = () => {
               <p class="cart-item-price">${formatPrice((item.priceValue || 0) * item.quantity)}</p>
             </div>
 
-            <div class="quantity-controls">
-              <button type="button" class="quantity-decrease" data-cart-item-id="${item.cartItemId}">−</button>
-              <span>${item.quantity}</span>
-              <button type="button" class="quantity-increase" data-cart-item-id="${item.cartItemId}">+</button>
+            </div class="cart-item-actions">
+              <div class="quantity-controls">
+                <button type="button" class="quantity-decrease" data-cart-item-id="${item.cartItemId}">−</button>
+                <span>${item.quantity}</span>
+                <button type="button" class="quantity-increase" data-cart-item-id="${item.cartItemId}">+</button>
+              </div>
+              
+              <button type="button" class="cart-item-remove" data-cart-item-id="${item.cartItemId}" aria-label="Eliminar ${item.name} de la bolsa" title="Eliminar producto">🗑️</button>
+
             </div>
           </div>
         </div>
@@ -453,6 +466,7 @@ const renderCartPanel = () => {
 
 const increaseButtons = document.querySelectorAll('.quantity-increase')
 const decreaseButtons = document.querySelectorAll('.quantity-decrease')
+const removeButtons = document.querySelectorAll('.cart-item-remove')
 
 increaseButtons.forEach((button) => {
   button.addEventListener('click', () => {
@@ -463,6 +477,13 @@ increaseButtons.forEach((button) => {
 decreaseButtons.forEach((button) => {
   button.addEventListener('click', () => {
     decreaseCartItem(button.dataset.cartItemId)
+  })
+})
+
+removeButtons.forEach((button) => {
+  button.addEventListener('click', () => {
+    const cartItemId = button.dataset.cartItemId
+    removeCartItem(cartItemId)
   })
 })
 
@@ -931,6 +952,35 @@ cartButton.addEventListener('click', () => {
   cartPanel.classList.add('active')
 })
 
+const smoothScrollCarousel = (carousel, targetPosition, duration = 600) => {
+  const startPosition = carousel.scrollLeft
+  const distance = targetPosition - startPosition
+  const startTime = performance.now()
+
+  const maxScroll = carousel.scrollWidth - carousel.clientWidth
+  const finalPosition = Math.max(0, Math.min(targetPosition, maxScroll))
+
+  const animateScroll = (currentTime) => {
+    const elapsedTime = currentTime - startTime
+    const progress = Math.min(elapsedTime / duration, 1)
+
+    // Empieza suave, acelera y vuelve a frenar.
+    const ease =
+      progress < 0.5
+        ? 2 * progress * progress
+        : 1 - Math.pow(-2 * progress + 2, 2) / 2
+
+    carousel.scrollLeft =
+      startPosition + (finalPosition - startPosition) * ease
+
+    if (progress < 1) {
+      requestAnimationFrame(animateScroll)
+    }
+  }
+
+  requestAnimationFrame(animateScroll)
+}
+
 const carouselButtons = document.querySelectorAll('.carousel-arrow')
 
 carouselButtons.forEach((button) => {
@@ -947,12 +997,11 @@ carouselButtons.forEach((button) => {
     const cardWidth = firstCard.offsetWidth + gap
     const direction = button.classList.contains('carousel-next') ? 1 : -1
 
-    const nextPosition = carousel.scrollLeft + direction * cardWidth
-
-    carousel.scrollTo({
-      left: nextPosition < cardWidth / 2 ? 0 : nextPosition,
-      behavior: 'smooth',
-    })
+    smoothScrollCarousel(
+      carousel,
+      carousel.scrollLeft + direction * cardWidth,
+      600
+    )
   })
 })
 
