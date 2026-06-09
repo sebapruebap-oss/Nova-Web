@@ -1310,34 +1310,23 @@ button:focus-visible,
   display: block;
 }
 
-#abrigos .grid,
-#mayorista .grid {
+.product-section .grid {
   justify-content: flex-start;
   max-width: none;
   scroll-snap-type: x mandatory;
 }
 
-#abrigos .product-card,
-#mayorista .product-card {
+.product-section .product-card {
   flex: 0 0 76vw;
   min-width: 76vw;
   max-width: 76vw;
   scroll-snap-align: start;
 }
 
-#abrigos .product-card img,
-#mayorista .product-card img {
+.product-section .product-card img {
   height: 280px;
   object-fit: cover;
   object-position: center;
-}
-
-#abrigos .product-card:nth-child(1) img {
-  object-position: center 42%;
-}
-
-#abrigos .product-card:nth-child(2) img {
-  object-position: center 38%;
 }
 
 .carousel-arrow {
