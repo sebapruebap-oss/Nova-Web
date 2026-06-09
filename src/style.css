@@ -577,6 +577,14 @@ h1 {
   margin-bottom: 28px;
 }
 
+#abrigos h2,
+#mayorista h2 {
+  width: 100%;
+  text-align: center;
+  margin-left: 0;
+  margin-right: 0;
+}
+
 .section-description {
   max-width: 650px;
   font-size: 18px;
@@ -1041,6 +1049,14 @@ button:focus-visible,
   box-shadow: none;
 }
 
+.hero-mobile {
+  display: none;
+}
+
+.hero-desktop {
+  display: contents;
+}
+
 @media (max-width: 800px) {
 .header {
   flex-direction: row;
@@ -1097,9 +1113,38 @@ button:focus-visible,
 }
 
   .hero {
-    padding: 58px 22px 70px;
-    min-height: auto;
+    position: relative;
     display: block;
+    min-height: auto;
+    padding: 0;
+    overflow: hidden;
+  }
+
+  .hero-desktop {
+    display: none;
+  }
+
+  .hero-mobile {
+    position: relative;
+    display: flex;
+    min-height: 570px;
+    padding: 105px 22px 70px;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+  }
+  
+  .hero-mobile-location {
+    position: relative;
+    z-index: 2;
+    display: block;
+    margin-bottom: 28px;
+
+    font-size: 13px;
+    letter-spacing: 6px;
+    line-height: 1;
+    text-align: center;
+    color: var(--muted);
   }
 
   .hero p {
@@ -1109,6 +1154,63 @@ button:focus-visible,
 .categories,
 .steps-grid {
   grid-template-columns: 1fr;
+}
+
+.nav-main-panel,
+.products-panel {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.products-panel {
+  display: none;
+}
+
+.nav-menu.show-products .nav-main-panel {
+  display: none;
+}
+
+.nav-menu.show-products .products-panel {
+  display: flex;
+}
+
+.products-menu-button,
+.products-back-button {
+  width: 100%;
+  border: none;
+  background: transparent;
+  color: var(--text);
+  font: inherit;
+  font-size: 18px;
+  cursor: pointer;
+  padding: 14px 0;
+}
+
+.products-menu-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.products-menu-button span {
+  font-size: 25px;
+  line-height: 1;
+}
+
+.products-back-button {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 8px;
+  margin-bottom: 10px;
+  color: var(--muted);
+}
+
+.products-back-button span {
+  font-size: 25px;
+  line-height: 1;
 }
 
 .grid {
@@ -1164,15 +1266,34 @@ button:focus-visible,
   display: none;
 }
 
-.hero-flower-left {
-  display: none;
+.hero-mobile-flower {
+  position: absolute;
+  z-index: 1;
+  width: 85px;
+  height: auto;
+  pointer-events: none;
 }
 
-.hero-flower-right {
+.hero-mobile-flower-left {
+  top: 22px;
+  left: -8px;
+  transform: scaleX(-1);
+}
+
+.hero-mobile-flower-right {
+  top: 22px;
+  right: -8px;
+}
+
+.hero-mobile-logo {
   display: block;
-  width: 80px;
-  right: -5px;
-  top: 15px;
+  width: 480px;
+  max-width: 100%;
+  height: auto;
+  object-fit: contain;
+  margin: 0 auto;
+  position: relative;
+  z-index: 2;
 }
 
 .logo-text {

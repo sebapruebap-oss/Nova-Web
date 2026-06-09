@@ -6,7 +6,8 @@ const products = [
   {
     id: 'sweater-lana-roto',
     name: 'Sweater de lana roto',
-    category: 'Abrigos',
+    category: 'mujeres',
+    seasonal: true,
     type: 'retail',
     price: '$7.200',
     priceValue: 7200,
@@ -34,7 +35,8 @@ const products = [
   {
     id: 'pulover-corto',
     name: 'Pulover corto',
-    category: 'Abrigos',
+    category: 'mujeres',
+    seasonal: true,
     type: 'retail',
     price: '$6.800',
     priceValue: 6800,
@@ -62,7 +64,8 @@ const products = [
   {
     id: 'poleron-largo',
     name: 'Polerón largo',
-    category: 'Abrigos',
+    category: 'mujeres',
+    seasonal: true,
     type: 'retail',
     price: '$6.800',
     priceValue: 6800,
@@ -90,7 +93,8 @@ const products = [
   {
     id: 'chaleco-dama-lana',
     name: 'Chaleco dama lana',
-    category: 'Abrigos',
+    category: 'mujeres',
+    seasonal: true,
     type: 'retail',
     price: '$6.800',
     priceValue: 6800,
@@ -103,7 +107,7 @@ const products = [
   {
     id: 'boxer-vuk',
     name: 'Boxer Vuk',
-    category: 'Mayorista',
+    category: 'hombres',
     type: 'wholesale',
     price: '$5.800',
     priceValue: 5800,
@@ -139,7 +143,7 @@ const products = [
   {
     id: 'boxer-intermezzo',
     name: 'Boxer Intermezzo',
-    category: 'Mayorista',
+    category: 'hombres',
     type: 'wholesale',
     price: '$6.200',
     priceValue: 6200,
@@ -180,7 +184,7 @@ const products = [
   {
     id: 'medias-largas',
     name: 'Medias largas',
-    category: 'Mayorista',
+    category: 'medias',
     type: 'wholesale',
     price: '$1.300',
     priceValue: 1300,
@@ -204,7 +208,7 @@ const products = [
   {
     id: 'medias-cana',
     name: 'Medias caña',
-    category: 'Mayorista',
+    category: 'medias',
     type: 'wholesale',
     price: '$1.300',
     priceValue: 1300,
@@ -236,7 +240,7 @@ const products = [
   {
     id: 'bombacha',
     name: 'Bombacha',
-    category: 'Mayorista',
+    category: 'mujeres',
     type: 'wholesale',
     price: '$2.200',
     priceValue: 2200,
@@ -264,7 +268,7 @@ const products = [
   {
     id: 'pack-tiro-corto-liso-algodon',
     name: 'Tiro corto liso algodón',
-    category: 'Mayorista',
+    category: 'mujeres',
     type: 'wholesale',
     price: '$6.200 pack x3',
     priceValue: 6200,
@@ -274,6 +278,46 @@ const products = [
     available: true,
     message: 'Hola, quiero consultar por el pack x3 de tiro corto liso algodón.',
   }
+]
+
+const categoryLabels = {
+  mujeres: 'Mujeres',
+  hombres: 'Hombres',
+  ninos: 'Niños',
+  medias: 'Medias',
+}
+
+const productSections = [
+  {
+    id: 'ofertas',
+    title: 'OFERTAS',
+    filter: product => product.onSale === true,
+  },
+  {
+    id: 'mujeres',
+    title: 'Mujeres',
+    filter: product => product.category === 'mujeres',
+  },
+  {
+    id: 'hombres',
+    title: 'Hombres',
+    filter: product => product.category === 'hombres',
+  },
+  {
+    id: 'ninos',
+    title: 'Niños',
+    filter: product => product.category === 'ninos',
+  },
+  {
+    id: 'medias',
+    title: 'Medias',
+    filter: product => product.category === 'medias',
+  },
+  {
+    id: 'temporada',
+    title: 'Temporada',
+    filter: product => product.seasonal === true,
+  },
 ]
 
 const savedCart = localStorage.getItem('aleale-cart')
@@ -648,7 +692,7 @@ const productCard = (product) => `
   <article class="product-card product-${product.id}">
     <img src="${product.image}" alt="${product.name}">
     <div class="product-info">
-      <span>${product.category === 'Mayorista' ? 'Básicos' : product.category}</span>
+      <span>${categoryLabels[product.category] ?? product.category}</span>
       <h3>${product.name}</h3>
       <p>${product.price}</p>
      <button class="btn primary add-to-cart" data-product-id="${product.id}">
@@ -657,6 +701,52 @@ const productCard = (product) => `
     </div>
   </article>
 `
+
+const renderProductSection = section => {
+  const sectionProducts = products.filter(section.filter)
+
+  const content = sectionProducts.length
+    ? `
+      <div class="carousel-wrap">
+        <button
+          class="carousel-arrow carousel-prev"
+          type="button"
+          data-target="${section.id}"
+          aria-label="Ver productos anteriores"
+        >
+          ❮
+        </button>
+
+        <div class="grid" id="${section.id}-grid">
+          ${sectionProducts.map(productCard).join('')}
+        </div>
+
+        <button
+          class="carousel-arrow carousel-next"
+          type="button"
+          data-target="${section.id}"
+          aria-label="Ver productos siguientes"
+        >
+          ❯
+        </button>
+      </div>
+    `
+    : `
+      <p class="empty-category">
+        Próximamente habrá productos en esta categoría.
+      </p>
+    `
+
+  return `
+    <section
+      id="${section.id}"
+      class="section product-section"
+    >
+      <h2>${section.title}</h2>
+      ${content}
+    </section>
+  `
+}
 
 document.querySelector('#app').innerHTML = `
 <header>
@@ -671,11 +761,30 @@ document.querySelector('#app').innerHTML = `
   </a>
 
   <nav class="nav-menu">
-    <a href="#abrigos">Abrigos</a>
-    <a href="#mayorista">Mayorista</a>
-    <a href="#como-comprar">Cómo comprar</a>
-    <a href="#envios">Envíos</a>
-    <a href="#contacto">Contacto</a>
+    <div class="nav-main-panel">
+      <button class="products-menu-button" type="button">
+        Productos
+        <span aria-hidden="true">›</span>
+      </button>
+
+      <a href="#como-comprar">Cómo comprar</a>
+      <a href="#envios">Envíos</a>
+      <a href="#contacto">Contacto</a>
+    </div>
+
+    <div class="products-panel">
+      <button class="products-back-button" type="button">
+        <span aria-hidden="true">‹</span>
+        Volver
+      </button>
+
+      <a href="#ofertas">OFERTAS</a>
+      <a href="#mujeres">Mujeres</a>
+      <a href="#hombres">Hombres</a>
+      <a href="#ninos">Niños</a>
+      <a href="#medias">Medias</a>
+      <a href="#temporada">Temporada</a>
+    </div>
   </nav>
 
   <button class="cart-button" type="button">
@@ -687,60 +796,78 @@ document.querySelector('#app').innerHTML = `
 
   <main>
     <section class="hero">
-      <div class="hero-text">
-        <span>ROPA DE INVIERNO · ROSARIO</span>
-        <h1>
-          Abrigos y básicos
-          <br class="mobile-break">
-          para todos
-          <br class="mobile-break">
-          los días
-        </h1>
-        <p>Ropa de invierno y básicos por cantidad. Comprá simple y coordinamos en Rosario.</p>
 
-        <div class="hero-buttons">
-          <a href="#abrigos" class="btn primary">Ver abrigos</a>
-          <a href="#mayorista" class="btn secondary">Ver mayorista</a>
+      <div class="hero-desktop">
+        <div class="hero-text">
+          <span>ROPA DE INVIERNO · ROSARIO</span>
+
+          <h1>
+            Abrigos y básicos
+            <br class="mobile-break">
+            para todos
+            <br class="mobile-break">
+            los días
+          </h1>
+
+          <p>
+            Ropa de invierno y básicos por cantidad.
+            Comprá simple y coordinamos entrega en Rosario.
+          </p>
+
+          <div class="hero-buttons">
+            <a href="#abrigos" class="btn primary">Ver abrigos</a>
+            <a href="#mayorista" class="btn secondary">Ver mayorista</a>
+          </div>
         </div>
+
+        <div class="hero-visual">
+          <div class="hero-brand-card">
+            <img
+              src="/imagenes/logo-aleale-floral.png"
+              alt="Logo floral de AleAle"
+            >
+          </div>
+        </div>
+
+        <img
+          class="hero-flower hero-flower-left"
+          src="/imagenes/floral-left.png"
+          alt=""
+        >
+
+        <img
+          class="hero-flower hero-flower-right"
+          src="/imagenes/floral-right.png"
+          alt=""
+        >
       </div>
 
-      <div class="hero-visual">
-        <div class="hero-brand-card">
-          <img src="/imagenes/logo-aleale-floral.png" alt="Logo floral de AleAle">
-        </div>
+
+      <div class="hero-mobile">
+        <img
+          class="hero-mobile-flower hero-mobile-flower-left"
+          src="/imagenes/floral-left.png"
+          alt=""
+        >
+
+        <img
+          class="hero-mobile-flower hero-mobile-flower-right"
+          src="/imagenes/floral-right.png"
+          alt=""
+        >
+
+        <span class="hero-mobile-location">ROSARIO</span>
+
+        <img
+          class="hero-mobile-logo"
+          src="/imagenes/ale-ale-mayorista.png"
+          alt="Ale-Ale Mayorista"
+        >
       </div>
 
-      <img class="hero-flower hero-flower-left" src="/imagenes/floral-left.png" alt="">
-      <img class="hero-flower hero-flower-right" src="/imagenes/floral-right.png" alt="">
     </section>
 
-    <section id="abrigos" class="section abrigos">
-      <h2>Abrigos de temporada</h2>
-
-      <div class="carousel-wrap">
-        <button class="carousel-arrow carousel-prev" type="button" data-target="abrigos">‹</button>
-
-        <div class="grid" id="abrigos-grid">
-          ${products.filter((product) => product.category === 'Abrigos').map(productCard).join('')}
-        </div>
-
-        <button class="carousel-arrow carousel-next" type="button" data-target="abrigos">›</button>
-      </div>
-    </section>
-
-    <section id="mayorista" class="section mayorista">
-      <h2>Básicos por cantidad</h2>
-
-      <div class="carousel-wrap">
-        <button class="carousel-arrow carousel-prev" type="button" data-target="mayorista">‹</button>
-      
-        <div class="grid" id="mayorista-grid">
-          ${products.filter(product => product.category === 'Mayorista').map(productCard).join('')}
-        </div>
-      
-        <button class="carousel-arrow carousel-next" type="button" data-target="mayorista">›</button>
-      </div>  
-    </section>
+    ${productSections.map(renderProductSection).join('')}
 
     <section id="como-comprar" class="section steps">
       <span class="section-label">SIMPLE</span>
@@ -801,14 +928,33 @@ const menuToggle = document.querySelector('.menu-toggle')
 const navMenu = document.querySelector('.nav-menu')
 const navLinks = document.querySelectorAll('.nav-menu a')
 
+const productsMenuButton = document.querySelector('.products-menu-button')
+const productsBackButton = document.querySelector('.products-back-button')
+
 menuToggle.addEventListener('click', () => {
   navMenu.classList.toggle('active')
-  menuToggle.textContent = navMenu.classList.contains('active') ? '×' : '☰'
+
+  const menuIsOpen = navMenu.classList.contains('active')
+
+  menuToggle.textContent = menuIsOpen ? '×' : '☰'
+
+  if (!menuIsOpen) {
+    navMenu.classList.remove('show-products')
+  }
+})
+
+productsMenuButton.addEventListener('click', () => {
+  navMenu.classList.add('show-products')
+})
+
+productsBackButton.addEventListener('click', () => {
+  navMenu.classList.remove('show-products')
 })
 
 navLinks.forEach((link) => {
   link.addEventListener('click', () => {
     navMenu.classList.remove('active')
+    navMenu.classList.remove('show-products')
     menuToggle.textContent = '☰'
   })
 })
@@ -834,7 +980,7 @@ const openProductModal = (productId) => {
       </div>
 
       <div class="product-modal-info">
-        <span>${product.category === 'Mayorista' ? 'Básicos' : product.category}</span>
+        <span>${categoryLabels[product.category] ?? product.category}</span>
         <h3>${product.name}</h3>
         <p>${product.price}</p>
 
