@@ -7,6 +7,7 @@ const products = [
     id: 'sweater-lana-roto',
     name: 'Sweater de lana roto',
     category: 'mujeres',
+    sections: ['temporada'],
     seasonal: true,
     type: 'retail',
     price: '$7.200',
@@ -36,6 +37,7 @@ const products = [
     id: 'pulover-corto',
     name: 'Pulover corto',
     category: 'mujeres',
+    sections: ['temporada'],
     seasonal: true,
     type: 'retail',
     price: '$6.800',
@@ -65,6 +67,7 @@ const products = [
     id: 'poleron-largo',
     name: 'Polerón largo',
     category: 'mujeres',
+    sections: ['temporada'],
     seasonal: true,
     type: 'retail',
     price: '$6.800',
@@ -94,6 +97,7 @@ const products = [
     id: 'chaleco-dama-lana',
     name: 'Chaleco dama lana',
     category: 'mujeres',
+    sections: ['temporada'],
     seasonal: true,
     type: 'retail',
     price: '$6.800',
@@ -287,38 +291,80 @@ const categoryLabels = {
   medias: 'Medias',
 }
 
+const productBelongsToSection = (product, sectionId) => {
+  // Ofertas sigue dependiendo de onSale
+  if (sectionId === 'ofertas') {
+    return product.onSale === true;
+  }
+
+  // Si el producto tiene sections, esas secciones tienen prioridad
+  if (Array.isArray(product.sections)) {
+    return product.sections.includes(sectionId);
+  }
+
+  // Compatibilidad con los productos anteriores
+  if (sectionId === 'temporada') {
+    return product.seasonal === true;
+  }
+
+  return product.category === sectionId;
+};
+
 const productSections = [
   {
     id: 'ofertas',
     title: 'OFERTAS',
-    filter: product => product.onSale === true,
+    filter: product => productBelongsToSection(product, 'ofertas'),
   },
   {
     id: 'mujeres',
     title: 'Mujeres',
-    filter: product => product.category === 'mujeres',
+    filter: product => productBelongsToSection(product, 'mujeres'),
   },
   {
     id: 'hombres',
     title: 'Hombres',
-    filter: product => product.category === 'hombres',
+    filter: product => productBelongsToSection(product, 'hombres'),
   },
   {
     id: 'ninos',
     title: 'Niños',
-    filter: product => product.category === 'ninos',
+    filter: product => productBelongsToSection(product, 'ninos'),
   },
   {
     id: 'medias',
     title: 'Medias',
-    filter: product => product.category === 'medias',
+    filter: product => productBelongsToSection(product, 'medias'),
   },
   {
     id: 'temporada',
     title: 'Temporada',
-    filter: product => product.seasonal === true,
+    filter: product => productBelongsToSection(product, 'temporada'),
   },
-]
+];
+
+const getProductSectionLabel = product => {
+  // Primero priorizamos las secciones elegidas manualmente
+  if (Array.isArray(product.sections) && product.sections.length > 0) {
+    const mainSectionId = product.sections[0]
+
+    const matchedSection = productSections.find(
+      section => section.id === mainSectionId
+    )
+
+    if (matchedSection) {
+      return matchedSection.title
+    }
+  }
+
+  // Compatibilidad con productos antiguos
+  if (product.seasonal === true) {
+    return 'Temporada'
+  }
+
+  // Como última opción usamos la categoría
+  return categoryLabels[product.category] || product.category || ''
+}
 
 const savedCart = localStorage.getItem('aleale-cart')
 
@@ -692,7 +738,6 @@ const productCard = (product) => `
   <article class="product-card product-${product.id}">
     <img src="${product.image}" alt="${product.name}">
     <div class="product-info">
-      <span>${categoryLabels[product.category] ?? product.category}</span>
       <h3>${product.name}</h3>
       <p>${product.price}</p>
      <button class="btn primary add-to-cart" data-product-id="${product.id}">
@@ -704,6 +749,42 @@ const productCard = (product) => `
 
 const renderProductSection = section => {
   const sectionProducts = products.filter(section.filter)
+
+  if (sectionProducts.length === 0) return ''
+
+  return `
+    <section
+      id="${section.id}"
+      class="section product-section"
+    >
+      <h2>${section.title}</h2>
+
+      <div class="carousel-wrap">
+        <button
+          class="carousel-arrow carousel-prev"
+          type="button"
+          data-target="${section.id}"
+          aria-label="Ver productos anteriores"
+        >
+          ❮
+        </button>
+
+        <div class="grid" id="${section.id}-grid">
+          ${sectionProducts.map(productCard).join('')}
+        </div>
+
+        <button
+          class="carousel-arrow carousel-next"
+          type="button"
+          data-target="${section.id}"
+          aria-label="Ver productos siguientes"
+        >
+          ❯
+        </button>
+      </div>
+    </section>
+  `
+  
 
   const content = sectionProducts.length
     ? `
@@ -945,7 +1026,7 @@ const openProductModal = (productId) => {
       </div>
 
       <div class="product-modal-info">
-        <span>${categoryLabels[product.category] ?? product.category}</span>
+        <span>${getProductSectionLabel(product)}</span>
         <h3>${product.name}</h3>
         <p>${product.price}</p>
 
@@ -992,10 +1073,18 @@ const openProductModal = (productId) => {
             <button type="button" class="modal-quantity-increase">+</button>
           </div>
         </div>
+        
+        <div class="product-modal-actions">
+          <button class="btn primary modal-add-to-cart" type="button">
+            Agregar al carrito
+          </button>
 
-        <button class="btn primary modal-add-to-cart" type="button">
-          Agregar al carrito
-        </button>
+          <img
+            src="/imagenes/sublogo-ale-ale.png"
+            alt="Logo Ale-Ale"
+            class="product-modal-sublogo"
+          >
+        </div>  
       </div>
     </div>
   `
@@ -1116,6 +1205,29 @@ const smoothScrollCarousel = (carousel, targetPosition, duration = 600) => {
   requestAnimationFrame(animateScroll)
 }
 
+const updateCarouselLayout = () => {
+  const carouselWrappers = document.querySelectorAll('.carousel-wrap')
+
+  carouselWrappers.forEach(wrapper => {
+    const carousel = wrapper.querySelector('.grid')
+    const arrows = wrapper.querySelectorAll('.carousel-arrow')
+
+    if (!carousel) return
+
+    const hasOverflow =
+      carousel.scrollWidth > carousel.clientWidth + 2
+
+    carousel.classList.toggle('is-centered', !hasOverflow)
+    wrapper.classList.toggle('has-overflow', hasOverflow)
+
+    arrows.forEach(arrow => {
+      arrow.hidden = !hasOverflow
+      arrow.tabIndex = hasOverflow ? 0 : -1
+      arrow.setAttribute('aria-hidden', String(!hasOverflow))
+    })
+  })
+}
+
 const carouselButtons = document.querySelectorAll('.carousel-arrow')
 
 carouselButtons.forEach((button) => {
@@ -1139,5 +1251,10 @@ carouselButtons.forEach((button) => {
     )
   })
 })
+
+requestAnimationFrame(updateCarouselLayout)
+
+window.addEventListener('load', updateCarouselLayout)
+window.addEventListener('resize', updateCarouselLayout)
 
 updateCartButton()
