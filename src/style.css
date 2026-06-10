@@ -744,6 +744,29 @@ h1 {
   scroll-snap-align: start;
 }
 
+.product-section > h2 {
+  position: relative;
+  width: fit-content;
+  margin-bottom: 34px;
+}
+
+.product-section > h2::after {
+  content: "";
+  display: block;
+  width: 72px;
+  height: 2px;
+  margin-top: 10px;
+
+  background: linear-gradient(
+    90deg,
+    #c99a55,
+    #e4b8ad,
+    transparent
+  );
+
+  border-radius: 999px;
+}
+
 .grid::-webkit-scrollbar {
   display: none;
 }
@@ -1377,6 +1400,15 @@ button:focus-visible,
   height: 280px;
   object-fit: cover;
   object-position: center;
+}
+
+.product-section > h2 {
+  margin-bottom: 24px;
+}
+
+.product-section > h2::after {
+  width: 58px;
+  margin-top: 8px;
 }
 
 .carousel-arrow {

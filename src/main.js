@@ -784,49 +784,6 @@ const renderProductSection = section => {
       </div>
     </section>
   `
-  
-
-  const content = sectionProducts.length
-    ? `
-      <div class="carousel-wrap">
-        <button
-          class="carousel-arrow carousel-prev"
-          type="button"
-          data-target="${section.id}"
-          aria-label="Ver productos anteriores"
-        >
-          ❮
-        </button>
-
-        <div class="grid" id="${section.id}-grid">
-          ${sectionProducts.map(productCard).join('')}
-        </div>
-
-        <button
-          class="carousel-arrow carousel-next"
-          type="button"
-          data-target="${section.id}"
-          aria-label="Ver productos siguientes"
-        >
-          ❯
-        </button>
-      </div>
-    `
-    : `
-      <p class="empty-category">
-        Próximamente habrá productos en esta categoría.
-      </p>
-    `
-
-  return `
-    <section
-      id="${section.id}"
-      class="section product-section"
-    >
-      <h2>${section.title}</h2>
-      ${content}
-    </section>
-  `
 }
 
 document.querySelector('#app').innerHTML = `
