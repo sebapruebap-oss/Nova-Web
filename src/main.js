@@ -798,36 +798,12 @@ document.querySelector('#app').innerHTML = `
     <section class="hero">
 
       <div class="hero-desktop">
-        <div class="hero-text">
-          <span>ROPA DE INVIERNO · ROSARIO</span>
-
-          <h1>
-            Abrigos y básicos
-            <br class="mobile-break">
-            para todos
-            <br class="mobile-break">
-            los días
-          </h1>
-
-          <p>
-            Ropa de invierno y básicos por cantidad.
-            Comprá simple y coordinamos entrega en Rosario.
-          </p>
-
-          <div class="hero-buttons">
-            <a href="#abrigos" class="btn primary">Ver abrigos</a>
-            <a href="#mayorista" class="btn secondary">Ver mayorista</a>
-          </div>
-        </div>
-
-        <div class="hero-visual">
-          <div class="hero-brand-card">
-            <img
-              src="/imagenes/logo-aleale-floral.png"
-              alt="Logo floral de AleAle"
-            >
-          </div>
-        </div>
+       <img
+          class="hero-desktop-logo"
+          src="/imagenes/ale-ale-mayorista.png"
+          alt="Ale-Ale Mayorista"
+        >
+      </div>
 
         <img
           class="hero-flower hero-flower-left"
@@ -844,18 +820,7 @@ document.querySelector('#app').innerHTML = `
 
 
       <div class="hero-mobile">
-        <img
-          class="hero-mobile-flower hero-mobile-flower-left"
-          src="/imagenes/floral-left.png"
-          alt=""
-        >
-
-        <img
-          class="hero-mobile-flower hero-mobile-flower-right"
-          src="/imagenes/floral-right.png"
-          alt=""
-        >
-
+        
         <span class="hero-mobile-location">ROSARIO</span>
 
         <img
@@ -944,7 +909,7 @@ menuToggle.addEventListener('click', () => {
 })
 
 productsMenuButton.addEventListener('click', () => {
-  navMenu.classList.add('show-products')
+  navMenu.classList.toggle('show-products')
 })
 
 productsBackButton.addEventListener('click', () => {
