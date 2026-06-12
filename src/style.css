@@ -259,9 +259,9 @@ header {
 
 .cart-item-actions {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
-  gap: 8px;
+  gap: 12px;
 }
 
 .cart-item-remove {
@@ -329,10 +329,9 @@ header {
 }
 
 .cart-item-header {
-  display: grid;
-  grid-template-columns: 1fr auto;
-  gap: 12px;
-  align-items: start;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
 .cart-item-main {

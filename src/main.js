@@ -492,7 +492,6 @@ const renderCartPanel = () => {
       </div>
 
 <div class="cart-items">
-<div class="cart-items">
   ${cart.map((item) => `
       <div class="cart-item">
         <img src="${item.image}" alt="${item.name}" class="cart-item-image">
@@ -511,7 +510,7 @@ const renderCartPanel = () => {
               <p class="cart-item-price">${formatPrice((item.priceValue || 0) * item.quantity)}</p>
             </div>
 
-            </div class="cart-item-actions">
+            <div class="cart-item-actions">
               <div class="quantity-controls">
                 <button type="button" class="quantity-decrease" data-cart-item-id="${item.cartItemId}">−</button>
                 <span>${item.quantity}</span>
@@ -854,7 +853,6 @@ document.querySelector('#app').innerHTML = `
           src="/imagenes/floral-right.png"
           alt=""
         >
-      </div>
 
 
       <div class="hero-mobile">
