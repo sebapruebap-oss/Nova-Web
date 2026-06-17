@@ -329,7 +329,46 @@ const products = [
     description: 'Pack x3. Modelos sujetos a disponibilidad. Coordinamos por WhatsApp.',
     available: true,
     message: 'Hola, quiero consultar por el pack x3 de tiro corto liso algodón.',
-  }
+  },
+  {
+    id: 'pulover-polar-nino',
+    name: 'Pulóver polar niño',
+    category: 'ninos',
+    sections: ['ninos'],
+    type: 'wholesale',
+    price: '$9.400',
+    priceValue: 9400,
+    minQuantity: 1,
+    image: '/productos/pulover-polar-nino-negro.png',
+    optionLabel: 'Color',
+    colors: [
+      {
+        name: 'Negro',
+        image: '/productos/pulover-polar-nino-negro.png',
+      },
+      {
+        name: 'Bordó',
+        image: '/productos/pulover-polar-nino-bordo.png',
+      },
+      {
+        name: 'Azul marino',
+        image: '/productos/pulover-polar-nino-azul-marino.png',
+      },
+      {
+        name: 'Verde militar',
+        image: '/productos/pulover-polar-nino-verde-militar.png',
+      },
+      {
+        name: 'Rojo',
+        image: '/productos/pulover-polar-nino-rojo.png',
+      },
+      {
+        name: 'Naranja',
+        image: '/productos/pulover-polar-nino-naranja.png',
+      },
+    ],
+    sizes: ['4 años', '6 años', '8 años', '10 años', '12 años', '14 años'],
+  },
 ]
 
 const categoryLabels = {
