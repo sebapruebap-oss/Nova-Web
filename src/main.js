@@ -135,6 +135,17 @@ const products = [
     ],
   },
   {
+    id: 'pulover-piel-de-mono',
+    name: 'Pulóver piel de mono',
+    category: 'temporada',
+    sections: ['temporada'],
+    type: 'wholesale',
+    price: '$6.800',
+    priceValue: 6800,
+    minQuantity: 1,
+    image: '/productos/pulover-piel-de-mono.png',
+  },
+  {
     id: 'boxer-vuk',
     name: 'Boxer Vuk',
     category: 'hombres',
