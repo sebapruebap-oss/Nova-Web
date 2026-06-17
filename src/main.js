@@ -109,6 +109,32 @@ const products = [
     message: 'Hola, quiero consultar por el Chaleco dama lana.',
   },
   {
+    id: 'chaleco-lana',
+    name: 'Chaleco lana',
+    category: 'temporada',
+    sections: ['temporada'],
+    type: 'wholesale',
+    price: '$6.800',
+    priceValue: 6800,
+    minQuantity: 1,
+    image: '/productos/chaleco-lana-negro.png',
+    optionLabel: 'Color',
+    colors: [
+      {
+        name: 'Negro',
+        image: '/productos/chaleco-lana-negro.png',
+      },
+      {
+        name: 'Azul',
+        image: '/productos/chaleco-lana-azul.png',
+      },
+      {
+        name: 'Bordo',
+        image: '/productos/chaleco-lana-bordo.png',
+      },
+    ],
+  },
+  {
     id: 'boxer-vuk',
     name: 'Boxer Vuk',
     category: 'hombres',
