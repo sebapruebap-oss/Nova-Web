@@ -146,6 +146,17 @@ const products = [
     image: '/productos/pulover-piel-de-mono.png',
   },
   {
+    id: 'campera-piel-de-mono',
+    name: 'Campera piel de mono',
+    category: 'temporada',
+    sections: ['temporada'],
+    type: 'wholesale',
+    price: '$6.800',
+    priceValue: 6800,
+    minQuantity: 1,
+    image: '/productos/campera-piel-de-mono.png',
+  },
+  {
     id: 'boxer-vuk',
     name: 'Boxer Vuk',
     category: 'hombres',
