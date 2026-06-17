@@ -129,7 +129,7 @@ const products = [
         image: '/productos/chaleco-lana-azul.png',
       },
       {
-        name: 'Bordo',
+        name: 'Rojo',
         image: '/productos/chaleco-lana-bordo.png',
       },
     ],
