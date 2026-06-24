@@ -184,6 +184,7 @@ header {
   box-shadow: -10px 0 30px rgba(0, 0, 0, 0.18);
   transition: transform 0.25s ease;
   overflow-y: auto;
+  overscroll-behavior: contain;
 }
 
 .cart-panel.active {
@@ -829,6 +830,7 @@ h1 {
   align-items: center;
   justify-content: center;
   padding: 24px;
+  overscroll-behavior: contain;
 }
 
 .product-modal-content {
@@ -841,6 +843,7 @@ h1 {
   box-shadow: 0 24px 60px rgba(60, 70, 65, 0.18);
   display: grid;
   grid-template-columns: 1fr 1fr;
+  overscroll-behavior: contain;
 }
 
 .product-modal-close {
@@ -1428,7 +1431,8 @@ button:focus-visible,
 .product-modal-content {
   grid-template-columns: 1fr;
   max-height: 92vh;
-  border-radius: 22px 22px 0 0;
+  max-height: 92dvh;
+  border-radius: 22px;
 }
 
 .product-modal-image img {
@@ -1436,7 +1440,7 @@ button:focus-visible,
 }
 
 .product-modal-info {
-  padding: 32px 24px 28px;
+  padding: 32px 24px 36px;
 }
 
 .product-modal-info h3 {
@@ -1457,6 +1461,19 @@ button:focus-visible,
 
 .product-modal-actions .modal-add-to-cart {
   width: 100%;
+}
+
+.product-option {
+  margin-bottom: 16px;
+}
+
+.option-buttons {
+  gap: 8px;
+}
+
+.option-button {
+  padding: 9px 12px;
+  font-size: 13px;
 }
 
 .hero-buttons .btn {

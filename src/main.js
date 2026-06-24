@@ -629,9 +629,10 @@ const renderCartPanel = () => {
   const closeButton = document.querySelector('.cart-close')
 
   closeButton.addEventListener('click', () => {
+    unlockBodyScroll()
     cartPanel.classList.remove('active')
   })
-  
+
   const checkoutButton = document.querySelector('.cart-checkout')
 
   if (checkoutButton) {
@@ -761,6 +762,7 @@ removeButtons.forEach((button) => {
     const checkoutForm = document.querySelector('.checkout-form')
 
     closeButton.addEventListener('click', () => {
+      unlockBodyScroll()
       cartPanel.classList.remove('active')
     })
 
@@ -810,6 +812,7 @@ removeButtons.forEach((button) => {
 
       clearCart()
       renderCartPanel()
+      unlockBodyScroll()
       cartPanel.classList.remove('active')
     })
     
@@ -1085,6 +1088,29 @@ navLinks.forEach((link) => {
   })
 })
 
+let _lockedScrollY = 0
+
+const lockBodyScroll = () => {
+  _lockedScrollY = window.scrollY
+  const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth
+  document.body.style.overflow = 'hidden'
+  document.body.style.position = 'fixed'
+  document.body.style.top = `-${_lockedScrollY}px`
+  document.body.style.width = '100%'
+  if (scrollbarWidth > 0) {
+    document.body.style.paddingRight = `${scrollbarWidth}px`
+  }
+}
+
+const unlockBodyScroll = () => {
+  document.body.style.overflow = ''
+  document.body.style.position = ''
+  document.body.style.top = ''
+  document.body.style.width = ''
+  document.body.style.paddingRight = ''
+  window.scrollTo(0, _lockedScrollY)
+}
+
 const openProductModal = (productId) => {
   const product = products.find((item) => item.id === productId)
 
@@ -1170,6 +1196,7 @@ const openProductModal = (productId) => {
   `
 
   document.body.appendChild(modal)
+  lockBodyScroll()
 
   const closeButton = modal.querySelector('.product-modal-close')
   const image = modal.querySelector('.modal-product-img')
@@ -1185,6 +1212,7 @@ const openProductModal = (productId) => {
   let selectedQuantity = product.minQuantity || 1
 
   closeButton.addEventListener('click', () => {
+    unlockBodyScroll()
     modal.remove()
   })
 
@@ -1227,6 +1255,7 @@ const openProductModal = (productId) => {
       quantity: selectedQuantity,
     })
 
+    unlockBodyScroll()
     modal.remove()
   })
 }
@@ -1254,6 +1283,7 @@ const cartPanel = document.querySelector('.cart-panel')
 cartButton.addEventListener('click', () => {
   renderCartPanel()
   cartPanel.classList.add('active')
+  lockBodyScroll()
 })
 
 const smoothScrollCarousel = (carousel, targetPosition, duration = 600) => {
