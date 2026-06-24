@@ -398,7 +398,7 @@ header {
 }
 
 .hero {
-  min-height: 620px;
+  min-height: 380px;
   position: relative;
   overflow: hidden;
   background:
@@ -1131,7 +1131,9 @@ button:focus-visible,
 }
 
 .hero-desktop {
-  display: contents;
+  display: flex;
+  min-height: 380px;
+  padding: 32px 6%;
 }
 
 @media (max-width: 800px) {

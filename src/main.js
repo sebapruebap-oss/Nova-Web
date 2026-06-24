@@ -1040,7 +1040,45 @@ productsBackButton.addEventListener('click', () => {
 })
 
 navLinks.forEach((link) => {
-  link.addEventListener('click', () => {
+  link.addEventListener('click', (e) => {
+    const isDesktop = window.innerWidth > 800
+    const inProductsPanel = !!link.closest('.products-panel')
+
+    if (isDesktop && inProductsPanel) {
+      const href = link.getAttribute('href')
+      const target = href && href.startsWith('#') ? document.querySelector(href) : null
+
+      if (target) {
+        e.preventDefault()
+
+        const header = document.querySelector('header')
+        const offset = (header ? header.offsetHeight : 0) + 16
+        const destY = Math.max(0, target.getBoundingClientRect().top + window.scrollY - offset)
+
+        navMenu.classList.remove('show-products')
+
+        const startY = window.scrollY
+        const distance = destY - startY
+        const duration = 450
+        let startTime = null
+
+        const animate = (now) => {
+          if (startTime === null) startTime = now
+          const progress = Math.min((now - startTime) / duration, 1)
+          const ease = (1 - Math.cos(Math.PI * progress)) / 2
+          window.scrollTo(0, Math.round(startY + distance * ease))
+          if (progress < 1) {
+            requestAnimationFrame(animate)
+          } else {
+            history.pushState(null, '', href)
+          }
+        }
+
+        requestAnimationFrame(animate)
+        return
+      }
+    }
+
     navMenu.classList.remove('active')
     navMenu.classList.remove('show-products')
     menuToggle.textContent = '☰'
