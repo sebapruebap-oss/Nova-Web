@@ -1004,7 +1004,19 @@ document.querySelector('#app').innerHTML = `
 
 <div class="cart-panel"></div>
 
-<a 
+<div class="cart-mini-panel">
+  <div class="cart-mini-inner">
+    <img class="cart-mini-img" src="" alt="">
+    <div class="cart-mini-body">
+      <p class="cart-mini-header"><span class="cart-mini-check">✓</span> Agregado a tu bolsa</p>
+      <p class="cart-mini-name"></p>
+      <p class="cart-mini-details"></p>
+      <button class="cart-mini-btn" type="button">Ver bolsa →</button>
+    </div>
+  </div>
+</div>
+
+<a
   class="floating-whatsapp" 
   target="_blank" 
   aria-label="Consultar por WhatsApp"
@@ -1255,6 +1267,12 @@ const openProductModal = (productId) => {
       quantity: selectedQuantity,
     })
 
+    showCartMini(product, {
+      color: selectedColor,
+      size: selectedSize,
+      image: image.src,
+      quantity: selectedQuantity,
+    })
     unlockBodyScroll()
     modal.remove()
   })
@@ -1266,13 +1284,12 @@ addToCartButtons.forEach((button) => {
   button.addEventListener('click', () => {
     const productId = button.dataset.productId
     const product = products.find((item) => item.id === productId)
-
     if (!product) return
-
     if (product.colors || product.sizes) {
       openProductModal(productId)
     } else {
       addToCart(productId)
+      showCartMini(product, { quantity: product.minQuantity || 1 })
     }
   })
 })
@@ -1368,3 +1385,47 @@ window.addEventListener('load', updateCarouselLayout)
 window.addEventListener('resize', updateCarouselLayout)
 
 updateCartButton()
+
+const cartMiniPanel = document.querySelector('.cart-mini-panel')
+let cartMiniTimeout = null
+
+const positionMiniPanel = () => {
+  const cartBtn = document.querySelector('.cart-button')
+  const rect = cartBtn.getBoundingClientRect()
+  cartMiniPanel.style.top = `${rect.bottom + 8}px`
+  cartMiniPanel.style.right = `${window.innerWidth - rect.right}px`
+}
+
+const showCartMini = (product, options = {}) => {
+  const { color, size, image, quantity } = options
+  const displayImage = image || product.image
+  const displayQty = quantity || product.minQuantity || 1
+
+  const parts = []
+  if (color) parts.push(`${product.optionLabel || 'Color'}: ${color}`)
+  if (size) parts.push(`Talle: ${size}`)
+  parts.push(formatPrice((product.priceValue || 0) * displayQty))
+
+  cartMiniPanel.querySelector('.cart-mini-img').src = displayImage
+  cartMiniPanel.querySelector('.cart-mini-img').alt = product.name
+  cartMiniPanel.querySelector('.cart-mini-name').textContent = product.name
+  cartMiniPanel.querySelector('.cart-mini-details').textContent = parts.join(' · ')
+
+  positionMiniPanel()
+
+  if (cartMiniTimeout) clearTimeout(cartMiniTimeout)
+  cartMiniPanel.classList.add('visible')
+  cartMiniTimeout = setTimeout(() => {
+    cartMiniPanel.classList.remove('visible')
+    cartMiniTimeout = null
+  }, 2800)
+}
+
+cartMiniPanel.querySelector('.cart-mini-btn').addEventListener('click', () => {
+  if (cartMiniTimeout) clearTimeout(cartMiniTimeout)
+  cartMiniPanel.classList.remove('visible')
+  cartMiniTimeout = null
+  renderCartPanel()
+  cartPanel.classList.add('active')
+  lockBodyScroll()
+})
