@@ -457,6 +457,8 @@ const savedCart = localStorage.getItem('aleale-cart')
 
 let cart = savedCart ? JSON.parse(savedCart) : []
 
+let _cartScrollTop = 0
+
 const saveCart = () => {
   localStorage.setItem('aleale-cart', JSON.stringify(cart))
 }
@@ -613,17 +615,23 @@ const renderCartPanel = () => {
   `).join('')}
 </div>
 
-      <div class="cart-total">
-        <span>Total</span>
-        <strong>${formatPrice(getCartTotalPrice())}</strong>
+      <div class="cart-footer">
+        <div class="cart-total">
+          <span>Total</span>
+          <strong>${formatPrice(getCartTotalPrice())}</strong>
+        </div>
+
+        <p class="cart-note">El pedido se confirma según disponibilidad.</p>
+
+        <button class="btn primary cart-checkout" type="button">
+          Completar datos
+        </button>
       </div>
-
-      <p class="cart-note">El pedido se confirma según disponibilidad.</p>
-
-      <button class="btn primary cart-checkout" type="button">
-        Completar datos
-      </button>
     `
+
+    const cartItemsEl = cartPanel.querySelector('.cart-items')
+    if (cartItemsEl) cartItemsEl.scrollTop = _cartScrollTop
+    _cartScrollTop = 0
   }
 
   const closeButton = document.querySelector('.cart-close')
@@ -647,12 +655,16 @@ const removeButtons = document.querySelectorAll('.cart-item-remove')
 
 increaseButtons.forEach((button) => {
   button.addEventListener('click', () => {
+    const el = cartPanel.querySelector('.cart-items')
+    _cartScrollTop = el ? el.scrollTop : 0
     increaseCartItem(button.dataset.cartItemId)
   })
 })
 
 decreaseButtons.forEach((button) => {
   button.addEventListener('click', () => {
+    const el = cartPanel.querySelector('.cart-items')
+    _cartScrollTop = el ? el.scrollTop : 0
     decreaseCartItem(button.dataset.cartItemId)
   })
 })
@@ -660,6 +672,8 @@ decreaseButtons.forEach((button) => {
 removeButtons.forEach((button) => {
   button.addEventListener('click', () => {
     const cartItemId = button.dataset.cartItemId
+    const el = cartPanel.querySelector('.cart-items')
+    _cartScrollTop = el ? el.scrollTop : 0
     removeCartItem(cartItemId)
   })
 })
@@ -1137,7 +1151,9 @@ const openProductModal = (productId) => {
 
   modal.innerHTML = `
     <div class="product-modal-content">
-      <button class="product-modal-close" type="button">×</button>
+      <div class="product-modal-close-wrap">
+        <button class="product-modal-close" type="button">×</button>
+      </div>
 
       <div class="product-modal-image">
         <img src="${selectedImage}" alt="${product.name}" class="modal-product-img">
@@ -1187,7 +1203,7 @@ const openProductModal = (productId) => {
           <strong>Cantidad</strong>
           <div class="quantity-controls modal-quantity-controls">
             <button type="button" class="modal-quantity-decrease">−</button>
-            <span class="modal-quantity-value">${product.minQuantity || 1}</span>
+            <input type="number" inputmode="numeric" class="modal-quantity-value" value="${product.minQuantity || 1}" min="${product.minQuantity || 1}" step="1">
             <button type="button" class="modal-quantity-increase">+</button>
           </div>
         </div>
@@ -1248,18 +1264,37 @@ const openProductModal = (productId) => {
   })
 
   quantityDecrease.addEventListener('click', () => {
-    if (selectedQuantity <= 1) return
-
+    const minQ = product.minQuantity || 1
+    if (selectedQuantity <= minQ) return
     selectedQuantity -= 1
-    quantityValue.textContent = selectedQuantity
+    quantityValue.value = selectedQuantity
   })
 
   quantityIncrease.addEventListener('click', () => {
     selectedQuantity += 1
-    quantityValue.textContent = selectedQuantity
+    quantityValue.value = selectedQuantity
+  })
+
+  quantityValue.addEventListener('input', () => {
+    const minQ = product.minQuantity || 1
+    const raw = parseInt(quantityValue.value, 10)
+    if (!isNaN(raw) && raw >= minQ) {
+      selectedQuantity = raw
+    }
+  })
+
+  quantityValue.addEventListener('blur', () => {
+    const minQ = product.minQuantity || 1
+    const raw = parseInt(quantityValue.value, 10)
+    selectedQuantity = (isNaN(raw) || raw < minQ) ? minQ : raw
+    quantityValue.value = selectedQuantity
   })
 
   addButton.addEventListener('click', () => {
+    const minQ = product.minQuantity || 1
+    const raw = parseInt(quantityValue.value, 10)
+    selectedQuantity = (isNaN(raw) || raw < minQ) ? minQ : raw
+
     addToCart(productId, {
       color: selectedColor,
       size: selectedSize,
@@ -1282,15 +1317,7 @@ const addToCartButtons = document.querySelectorAll('.add-to-cart')
 
 addToCartButtons.forEach((button) => {
   button.addEventListener('click', () => {
-    const productId = button.dataset.productId
-    const product = products.find((item) => item.id === productId)
-    if (!product) return
-    if (product.colors || product.sizes) {
-      openProductModal(productId)
-    } else {
-      addToCart(productId)
-      showCartMini(product, { quantity: product.minQuantity || 1 })
-    }
+    openProductModal(button.dataset.productId)
   })
 })
 
