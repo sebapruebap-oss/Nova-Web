@@ -478,6 +478,7 @@ const addToCart = (productId, options = {}) => {
   const selectedSize = options.size || null
   const selectedImage = options.image || product.image
   const selectedQuantity = options.quantity || product.minQuantity || 1
+  const resolvedPriceValue = resolvePrice(product, selectedSize)
 
   const cartItemId = `${productId}-${selectedColor || 'sin-color'}-${selectedSize || 'sin-talle'}`
 
@@ -493,6 +494,7 @@ const addToCart = (productId, options = {}) => {
       selectedSize,
       image: selectedImage,
       quantity: selectedQuantity,
+      priceValue: resolvedPriceValue,
     })
   }
 
@@ -557,6 +559,26 @@ const getCartTotalPrice = () => {
 
 const formatPrice = (value) => {
   return `$${value.toLocaleString('es-AR')}`
+}
+
+const resolvePrice = (product, size) => {
+  if (product.sizePrices && size && product.sizePrices[size] !== undefined) {
+    return product.sizePrices[size]
+  }
+  return product.priceValue || 0
+}
+
+const formatProductPrice = (product, priceValue) => {
+  const suffix = product.priceSuffix ? ` ${product.priceSuffix}` : ''
+  return `${formatPrice(priceValue)}${suffix}`
+}
+
+const getCardPriceText = (product) => {
+  if (product.sizePrices) {
+    const minPrice = Math.min(...Object.values(product.sizePrices))
+    return `Desde ${formatProductPrice(product, minPrice)}`
+  }
+  return product.price
 }
 
 const renderCartPanel = () => {
@@ -842,7 +864,7 @@ const productCard = (product) => `
     <img src="${product.image}" alt="${product.name}">
     <div class="product-info">
       <h3>${product.name}</h3>
-      <p>${product.price}</p>
+      <p>${getCardPriceText(product)}</p>
      <button class="btn primary add-to-cart" data-product-id="${product.id}">
         Agregar al carrito
      </button>
@@ -1145,6 +1167,9 @@ const openProductModal = (productId) => {
   const firstColor = product.colors ? product.colors[0] : null
   const firstSize = product.sizes ? product.sizes[0] : null
   const selectedImage = firstColor ? firstColor.image : product.image
+  const initialModalPrice = product.sizePrices && firstSize
+    ? formatProductPrice(product, resolvePrice(product, firstSize))
+    : product.price
 
   const modal = document.createElement('div')
   modal.classList.add('product-modal')
@@ -1162,7 +1187,7 @@ const openProductModal = (productId) => {
       <div class="product-modal-info">
         <span>${getProductSectionLabel(product)}</span>
         <h3>${product.name}</h3>
-        <p>${product.price}</p>
+        <p class="modal-product-price">${initialModalPrice}</p>
 
         ${product.colors ? `
           <div class="product-option">
@@ -1260,6 +1285,11 @@ const openProductModal = (productId) => {
       button.classList.add('active')
 
       selectedSize = button.dataset.size
+
+      if (product.sizePrices) {
+        const priceEl = modal.querySelector('.modal-product-price')
+        if (priceEl) priceEl.textContent = formatProductPrice(product, resolvePrice(product, selectedSize))
+      }
     })
   })
 
@@ -1295,6 +1325,8 @@ const openProductModal = (productId) => {
     const raw = parseInt(quantityValue.value, 10)
     selectedQuantity = (isNaN(raw) || raw < minQ) ? minQ : raw
 
+    const resolvedPriceValue = resolvePrice(product, selectedSize)
+
     addToCart(productId, {
       color: selectedColor,
       size: selectedSize,
@@ -1307,6 +1339,7 @@ const openProductModal = (productId) => {
       size: selectedSize,
       image: image.src,
       quantity: selectedQuantity,
+      priceValue: resolvedPriceValue,
     })
     unlockBodyScroll()
     modal.remove()
@@ -1424,14 +1457,15 @@ const positionMiniPanel = () => {
 }
 
 const showCartMini = (product, options = {}) => {
-  const { color, size, image, quantity } = options
+  const { color, size, image, quantity, priceValue } = options
   const displayImage = image || product.image
   const displayQty = quantity || product.minQuantity || 1
+  const displayPriceValue = priceValue !== undefined ? priceValue : (product.priceValue || 0)
 
   const parts = []
   if (color) parts.push(`${product.optionLabel || 'Color'}: ${color}`)
   if (size) parts.push(`Talle: ${size}`)
-  parts.push(formatPrice((product.priceValue || 0) * displayQty))
+  parts.push(formatPrice(displayPriceValue * displayQty))
 
   cartMiniPanel.querySelector('.cart-mini-img').src = displayImage
   cartMiniPanel.querySelector('.cart-mini-img').alt = product.name
