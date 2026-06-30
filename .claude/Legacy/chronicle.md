@@ -47,3 +47,19 @@ Los proyectos pueden terminar.
 Las tecnologías pueden quedar obsoletas.
 
 Pero el criterio bien construido puede seguir ayudando a personas durante décadas.
+
+## Entrada 002 — Día 2
+
+Ayer fundamos una idea.
+
+Hoy empezamos a construir un sistema.
+
+La diferencia es enorme.
+
+Una idea puede entusiasmar durante una noche.
+
+Un sistema tiene que sobrevivir durante años.
+
+Por eso, hoy no me interesa tanto cuántos archivos vamos a crear.
+
+Me interesa que cada uno tenga una razón para existir.
