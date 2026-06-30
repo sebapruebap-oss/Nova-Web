@@ -188,6 +188,13 @@ const products = [
       },
   ],
   sizes: ['S', 'M', 'L', 'XL', 'XXL'],
+  sizePrices: {
+    S: 5800,
+    M: 5800,
+    L: 5800,
+    XL: 5800,
+    XXL: 6400,
+  },
   description: 'Boxers Vuk por mayor. Precio unitario con compra mínima de 3 unidades.',
   available: true,
   message: 'Hola, quiero consultar por Boxer Vuk por mayor. ¿Qué colores y talles tenés disponibles?'
@@ -322,8 +329,9 @@ const products = [
     name: 'Tiro corto liso algodón',
     category: 'mujeres',
     type: 'wholesale',
-    price: '$6.200 pack x3',
-    priceValue: 6200,
+    price: '$6.800',
+    priceValue: 6800,
+    priceSuffix: 'pack x3',
     minQuantity: 1,
     image: '/productos/tiro-corto-liso-algodon.png',
     description: 'Pack x3. Modelos sujetos a disponibilidad. Coordinamos por WhatsApp.',
@@ -368,6 +376,96 @@ const products = [
       },
     ],
     sizes: ['4 años', '6 años', '8 años', '10 años', '12 años', '14 años'],
+  },
+  {
+    id: 'vedetina-morley-pack-x3',
+    name: 'Vedetina morley',
+    category: 'mujeres',
+    sections: ['mujeres'],
+    type: 'wholesale',
+    price: '$7.100',
+    priceValue: 7100,
+    minQuantity: 1,
+    image: '/productos/vedetina-morley-pack-x3.png',
+    priceSuffix: 'pack x3',
+    sizes: ['1', '2'],
+    sizePrices: {
+      '1': 7100,
+      '2': 8500,
+    },
+  },
+  {
+    id: 'cola-less-morley-pack-x3',
+    name: 'Cola-less morley',
+    category: 'mujeres',
+    sections: ['mujeres'],
+    type: 'wholesale',
+    price: '$6.600',
+    priceValue: 6600,
+    priceSuffix: 'pack x3',
+    minQuantity: 1,
+    image: '/productos/cola-less-morley-pack-x3.png',
+    sizes: ['1', '2'],
+    sizePrices: {
+      '1': 6600,
+      '2': 7700,
+    },
+  },
+  {
+    id: 'vedetina-algodon-pack-x3',
+    name: 'Vedetina algodón',
+    category: 'mujeres',
+    sections: ['mujeres'],
+    type: 'wholesale',
+    price: '$5.300',
+    priceValue: 5300,
+    priceSuffix: 'pack x3',
+    minQuantity: 1,
+    image: '/productos/vedetina-algodon-pack-x3-neutro.png',
+    optionLabel: 'Modelo',
+    colors: [
+      {
+        name: 'Neutro',
+        image: '/productos/vedetina-algodon-pack-x3-neutro.png',
+      },
+      {
+        name: 'Color',
+        image: '/productos/vedetina-algodon-pack-x3-color.png',
+      },
+    ],
+    sizes: ['1', '2'],
+    sizePrices: {
+      '1': 5300,
+      '2': 6200,
+    },
+  },
+  {
+    id: 'cola-less-algodon-pack-x3',
+    name: 'Cola-less algodón',
+    category: 'mujeres',
+    sections: ['mujeres'],
+    type: 'wholesale',
+    price: '$4.900',
+    priceValue: 4900,
+    priceSuffix: 'pack x3',
+    minQuantity: 1,
+    image: '/productos/cola-less-algodon-pack-x3-neutro.png',
+    optionLabel: 'Modelo',
+    colors: [
+      {
+        name: 'Neutro',
+        image: '/productos/cola-less-algodon-pack-x3-neutro.png',
+      },
+      {
+        name: 'Color',
+        image: '/productos/cola-less-algodon-pack-x3-color.png',
+      },
+    ],
+    sizes: ['1', '2'],
+    sizePrices: {
+      '1': 4900,
+      '2': 5900,
+    },
   },
 ]
 
@@ -1188,6 +1286,7 @@ const openProductModal = (productId) => {
         <span>${getProductSectionLabel(product)}</span>
         <h3>${product.name}</h3>
         <p class="modal-product-price">${initialModalPrice}</p>
+        <p class="modal-price-notice">Precios sujetos a modificación según lista</p>
 
         ${product.colors ? `
           <div class="product-option">
@@ -1362,6 +1461,31 @@ cartButton.addEventListener('click', () => {
   cartPanel.classList.add('active')
   lockBodyScroll()
 })
+
+let _swipeStartX = null
+let _swipeStartY = null
+
+cartPanel.addEventListener('touchstart', (e) => {
+  const excluded = e.target.closest('button, input, a, select, textarea')
+  if (excluded) {
+    _swipeStartX = null
+    return
+  }
+  _swipeStartX = e.touches[0].clientX
+  _swipeStartY = e.touches[0].clientY
+}, { passive: true })
+
+cartPanel.addEventListener('touchend', (e) => {
+  if (_swipeStartX === null) return
+  const dx = e.changedTouches[0].clientX - _swipeStartX
+  const dy = e.changedTouches[0].clientY - _swipeStartY
+  _swipeStartX = null
+  _swipeStartY = null
+  if (dx >= 80 && Math.abs(dx) > Math.abs(dy)) {
+    unlockBodyScroll()
+    cartPanel.classList.remove('active')
+  }
+}, { passive: true })
 
 const smoothScrollCarousel = (carousel, targetPosition, duration = 600) => {
   const startPosition = carousel.scrollLeft

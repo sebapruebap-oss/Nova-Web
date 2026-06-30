@@ -965,6 +965,14 @@ h1 {
   margin-bottom: 28px;
 }
 
+.modal-price-notice {
+  font-size: 11px;
+  color: #a08c7e;
+  margin-top: -20px;
+  margin-bottom: 20px !important;
+  letter-spacing: 0.02em;
+}
+
 .product-modal-sublogo {
   width: 100px;
   height: 100px;
